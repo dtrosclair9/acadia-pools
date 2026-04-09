@@ -56,19 +56,15 @@ export default function AboutPage() {
               <h2 className="text-4xl md:text-5xl font-serif text-gray-900 mb-6">Meet Matt Glover</h2>
 
               <p className="text-gray-600 text-lg leading-relaxed mb-5">
-                Matt Glover is Thibodaux born and raised — and proud of it. If you&apos;ve ever crossed paths with Matt, you know exactly what we mean when we say he&apos;s never met a stranger. His personality is contagious, and within five minutes of meeting him, you&apos;ll be belly laughing like you&apos;ve known each other for years.
+                Born and raised right here in Thibodaux, Matt Glover is the kind of guy who never met a stranger. With over 10 years of experience in the Gunite pool construction industry, he brings both expertise and a personal touch to every project.
               </p>
 
               <p className="text-gray-600 text-lg leading-relaxed mb-5">
-                A true good ole boy living the Cajun lifestyle through and through — running crab traps on the weekends, cooking something delicious every single day, and loving every minute of life on the bayou. That authenticity isn&apos;t just his personality. It&apos;s his work ethic.
-              </p>
-
-              <p className="text-gray-600 text-lg leading-relaxed mb-5">
-                Matt founded Acadia Pools on a simple belief: people deserve a pool builder they can trust. Someone who shows up, does what they say, and builds something they&apos;d put their own name on. Every pool Acadia builds carries that standard.
+                A true good ole boy living the Cajun lifestyle — running crab traps on the weekends, cooking something delicious every day — Matt brings that same heart and authenticity to every single pool he builds.
               </p>
 
               <p className="text-gray-600 text-lg leading-relaxed mb-8">
-                When you hire Acadia Pools, you&apos;re not just hiring a contractor. You&apos;re getting someone who&apos;s going to treat your backyard like it&apos;s their own — because around here, that&apos;s just how things are done.
+                When you hire Acadia Pools, you&apos;re not just hiring a contractor. You&apos;re getting a neighbor who&apos;s going to treat your backyard like it&apos;s his own.
               </p>
 
               <div className="flex items-center gap-4">
