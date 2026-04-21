@@ -12,6 +12,7 @@ const services = [
   {
     id: 'gunite',
     title: 'Custom Gunite Pools',
+    learnMoreHref: '/services/gunite-pool-construction-thibodaux',
     image: '/images/pool-hero.jpg',
     imageAlt: 'Custom gunite pool with stone coping',
     description: [
@@ -33,6 +34,7 @@ const services = [
   {
     id: 'renovation',
     title: 'Pool Renovation & Remodeling',
+    learnMoreHref: '/services/pool-renovation-thibodaux',
     image: '/images/pool-sun-shelf.jpg',
     imageAlt: 'Renovated pool with modern sun shelf',
     description: [
@@ -53,6 +55,7 @@ const services = [
   {
     id: 'water-features',
     title: 'Water Features',
+    learnMoreHref: '/services/water-features-thibodaux',
     image: '/images/pool-water-wall.jpg',
     imageAlt: 'Pool with elegant spillover water wall',
     description: [
@@ -73,6 +76,7 @@ const services = [
   {
     id: 'outdoor-living',
     title: 'Outdoor Living',
+    learnMoreHref: '/services/outdoor-living-thibodaux',
     image: '/images/outdoor-putting-green.jpg',
     imageAlt: 'Outdoor living space with putting green and pool',
     description: [
@@ -202,6 +206,16 @@ export default function ServicesPage() {
                     </li>
                   ))}
                 </ul>
+                {service.learnMoreHref && (
+                  <div className="mt-8">
+                    <Link
+                      href={service.learnMoreHref}
+                      className="btn-maroon text-sm px-6 py-3"
+                    >
+                      Learn More →
+                    </Link>
+                  </div>
+                )}
               </div>
             </div>
           </div>
