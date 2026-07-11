@@ -22,6 +22,7 @@ const entries: Entry[] = [
   { path: '/contact', priority: 0.6, changeFrequency: 'monthly' },
   { path: '/gallery', priority: 0.5, changeFrequency: 'monthly' },
   { path: '/privacy', priority: 0.3, changeFrequency: 'yearly' },
+  { path: '/accessibility', priority: 0.3, changeFrequency: 'yearly' },
 ]
 
 export default function sitemap(): MetadataRoute.Sitemap {

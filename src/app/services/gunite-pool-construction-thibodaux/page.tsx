@@ -175,7 +175,7 @@ export default function GunitePoolConstructionPage() {
             <h2 className="text-3xl md:text-4xl font-serif text-gray-900">
               Our Gunite Pool Building Process in Thibodaux
             </h2>
-            <p className="text-gray-500 mt-4 text-lg max-w-2xl mx-auto">
+            <p className="text-gray-600 mt-4 text-lg max-w-2xl mx-auto">
               Every Acadia pool goes through the same proven process — no shortcuts, no subs we don&apos;t trust.
             </p>
           </div>

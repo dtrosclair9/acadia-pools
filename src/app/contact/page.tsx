@@ -97,7 +97,7 @@ export default function ContactPage() {
                       {detail.icon}
                     </div>
                     <div>
-                      <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-1 font-sans">
+                      <p className="text-xs font-semibold uppercase tracking-widest text-gray-600 mb-1 font-sans">
                         {detail.label}
                       </p>
                       {detail.href ? (
@@ -118,7 +118,7 @@ export default function ContactPage() {
 
               {/* Facebook */}
               <div className="mt-10 pt-8 border-t border-gray-100">
-                <p className="text-sm text-gray-500 mb-3 font-sans">Follow our work on Facebook</p>
+                <p className="text-sm text-gray-600 mb-3 font-sans">Follow our work on Facebook</p>
                 <a
                   href="https://www.facebook.com/acadiapools"
                   target="_blank"
@@ -141,7 +141,7 @@ export default function ContactPage() {
                 style={{ backgroundColor: 'var(--color-cream)' }}
               >
                 <h2 className="text-2xl font-serif text-gray-900 mb-2">Request a Free Quote</h2>
-                <p className="text-gray-500 text-sm mb-7 font-sans">
+                <p className="text-gray-600 text-sm mb-7 font-sans">
                   Fill out the form below and Matt will get back to you within 24 hours.
                 </p>
                 <ContactForm />

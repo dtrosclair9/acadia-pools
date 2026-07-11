@@ -23,6 +23,51 @@
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-serif);
   }
+
+  /* Visible keyboard focus (WCAG 2.4.7 / 2.4.11). Dual ring — dark inner +
+     gold outer — stays visible on both light content and the dark maroon
+     header/footer. */
+  *:focus-visible {
+    outline: 3px solid var(--color-gold);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 2px var(--color-maroon-deeper);
+    border-radius: 2px;
+  }
+
+  /* Don't paint a ring on the programmatic skip-link target. */
+  #main:focus,
+  #main:focus-visible {
+    outline: none;
+    box-shadow: none;
+  }
+
+  /* Skip-to-content link — visible only when focused. */
+  .skip-link {
+    position: absolute;
+    left: 0.75rem;
+    top: -4rem;
+    z-index: 100;
+    background-color: var(--color-maroon-deeper);
+    color: #ffffff;
+    padding: 0.625rem 1.125rem;
+    border-radius: 0.25rem;
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 0.875rem;
+    transition: top 0.15s ease-in-out;
+  }
+  .skip-link:focus {
+    top: 0.75rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    .skip-link {
+      transition: none;
+    }
+  }
 }
 
 @layer components {

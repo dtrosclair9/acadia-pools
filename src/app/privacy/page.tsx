@@ -16,7 +16,7 @@ export default function PrivacyPage() {
     <section className="section-padding bg-white">
       <div className="container-wide max-w-3xl">
         <h1 className="text-4xl md:text-5xl font-serif text-gray-900 mb-3">Privacy Policy</h1>
-        <p className="text-sm text-gray-400 font-sans mb-10">Last updated: April 6, 2025</p>
+        <p className="text-sm text-gray-600 font-sans mb-10">Last updated: April 6, 2025</p>
 
         <div className="prose prose-gray max-w-none space-y-8 text-gray-600 leading-relaxed font-sans">
 
