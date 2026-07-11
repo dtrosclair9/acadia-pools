@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     title: 'Custom Pool Water Features in Thibodaux, LA | Acadia Pools',
     description:
       'Acadia Pools designs and installs stunning water features in Thibodaux, LA. Rock waterfalls, spillover spas, sheer descents, and more.',
-    url: 'https://acadiapools.com/services/water-features-thibodaux',
+    url: 'https://www.acadiapools.com/services/water-features-thibodaux',
     images: [
       {
         url: '/images/pool-water-wall.jpg',
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     ],
   },
   alternates: {
-    canonical: 'https://acadiapools.com/services/water-features-thibodaux',
+    canonical: 'https://www.acadiapools.com/services/water-features-thibodaux',
   },
 }
 
@@ -63,23 +63,23 @@ const jsonLd = {
     {
       '@type': 'BreadcrumbList',
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://acadiapools.com' },
-        { '@type': 'ListItem', position: 2, name: 'Services', item: 'https://acadiapools.com/services' },
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.acadiapools.com' },
+        { '@type': 'ListItem', position: 2, name: 'Services', item: 'https://www.acadiapools.com/services' },
         {
           '@type': 'ListItem',
           position: 3,
           name: 'Pool Water Features in Thibodaux, LA',
-          item: 'https://acadiapools.com/services/water-features-thibodaux',
+          item: 'https://www.acadiapools.com/services/water-features-thibodaux',
         },
       ],
     },
     {
       '@type': 'LocalBusiness',
-      '@id': 'https://acadiapools.com/#business',
+      '@id': 'https://www.acadiapools.com/#business',
       name: 'Acadia Pools',
-      url: 'https://acadiapools.com',
+      url: 'https://www.acadiapools.com',
       telephone: '+19854132954',
-      image: 'https://acadiapools.com/images/pool-hero.jpg',
+      image: 'https://www.acadiapools.com/images/pool-hero.jpg',
       priceRange: '$$$',
       address: {
         '@type': 'PostalAddress',
@@ -97,9 +97,9 @@ const jsonLd = {
       name: 'Custom Pool Water Features',
       description:
         'Design and installation of custom pool water features in Thibodaux, LA — rock waterfalls, spillover spas, sheer descents, deck jets, fire and water combinations, and more.',
-      provider: { '@id': 'https://acadiapools.com/#business' },
+      provider: { '@id': 'https://www.acadiapools.com/#business' },
       areaServed: { '@type': 'City', name: 'Thibodaux' },
-      url: 'https://acadiapools.com/services/water-features-thibodaux',
+      url: 'https://www.acadiapools.com/services/water-features-thibodaux',
     },
     {
       '@type': 'FAQPage',

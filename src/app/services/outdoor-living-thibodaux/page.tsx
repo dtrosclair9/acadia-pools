@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     title: 'Custom Outdoor Living Spaces in Thibodaux, LA | Acadia Pools',
     description:
       'Acadia Pools builds complete custom outdoor living spaces in Thibodaux, LA. Patios, pergolas, outdoor kitchens, fire pits, and more.',
-    url: 'https://acadiapools.com/services/outdoor-living-thibodaux',
+    url: 'https://www.acadiapools.com/services/outdoor-living-thibodaux',
     images: [
       {
         url: '/images/pool-aerial-turf.jpg',
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     ],
   },
   alternates: {
-    canonical: 'https://acadiapools.com/services/outdoor-living-thibodaux',
+    canonical: 'https://www.acadiapools.com/services/outdoor-living-thibodaux',
   },
 }
 
@@ -63,23 +63,23 @@ const jsonLd = {
     {
       '@type': 'BreadcrumbList',
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://acadiapools.com' },
-        { '@type': 'ListItem', position: 2, name: 'Services', item: 'https://acadiapools.com/services' },
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.acadiapools.com' },
+        { '@type': 'ListItem', position: 2, name: 'Services', item: 'https://www.acadiapools.com/services' },
         {
           '@type': 'ListItem',
           position: 3,
           name: 'Outdoor Living in Thibodaux, LA',
-          item: 'https://acadiapools.com/services/outdoor-living-thibodaux',
+          item: 'https://www.acadiapools.com/services/outdoor-living-thibodaux',
         },
       ],
     },
     {
       '@type': 'LocalBusiness',
-      '@id': 'https://acadiapools.com/#business',
+      '@id': 'https://www.acadiapools.com/#business',
       name: 'Acadia Pools',
-      url: 'https://acadiapools.com',
+      url: 'https://www.acadiapools.com',
       telephone: '+19854132954',
-      image: 'https://acadiapools.com/images/pool-hero.jpg',
+      image: 'https://www.acadiapools.com/images/pool-hero.jpg',
       priceRange: '$$$',
       address: {
         '@type': 'PostalAddress',
@@ -97,9 +97,9 @@ const jsonLd = {
       name: 'Custom Outdoor Living Spaces',
       description:
         'Design and construction of complete outdoor living spaces in Thibodaux, LA — custom patios, pergolas, outdoor kitchens, fire pits, putting greens, and more.',
-      provider: { '@id': 'https://acadiapools.com/#business' },
+      provider: { '@id': 'https://www.acadiapools.com/#business' },
       areaServed: { '@type': 'City', name: 'Thibodaux' },
-      url: 'https://acadiapools.com/services/outdoor-living-thibodaux',
+      url: 'https://www.acadiapools.com/services/outdoor-living-thibodaux',
     },
     {
       '@type': 'FAQPage',

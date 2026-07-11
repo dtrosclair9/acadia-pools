@@ -3,7 +3,11 @@ import Link from 'next/link'
 
 export const metadata: Metadata = {
   title: 'Privacy Policy',
-  description: 'Privacy Policy for Acadia Pools — how we collect, use, and protect your information.',
+  description:
+    'Read the Acadia Pools privacy policy: what information the site and contact form collect, how it is used, the services involved, and how it is protected.',
+  alternates: {
+    canonical: 'https://www.acadiapools.com/privacy',
+  },
   robots: { index: false, follow: false },
 }
 

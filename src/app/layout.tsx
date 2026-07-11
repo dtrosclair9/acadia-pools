@@ -3,6 +3,7 @@ import { Inter, Playfair_Display } from 'next/font/google'
 import './globals.css'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
+import { BASE_URL, ogImage } from '@/lib/seo'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -17,7 +18,7 @@ const playfair = Playfair_Display({
 })
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://acadiapools.com'),
+  metadataBase: new URL(BASE_URL),
   title: {
     default: 'Acadia Pools | Custom Gunite Pool Builder in Thibodaux, LA',
     template: '%s | Acadia Pools',
@@ -40,16 +41,9 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://acadiapools.com',
+    url: BASE_URL,
     siteName: 'Acadia Pools',
-    images: [
-      {
-        url: '/images/pool-hero.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'Acadia Pools – Custom Gunite Pool Builder in Thibodaux, LA',
-      },
-    ],
+    images: [ogImage],
   },
   twitter: {
     card: 'summary_large_image',

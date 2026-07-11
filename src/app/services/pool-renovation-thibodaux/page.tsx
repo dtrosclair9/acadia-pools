@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     title: 'Pool Renovation & Remodeling in Thibodaux, LA | Acadia Pools',
     description:
       'Transform your tired pool with Acadia Pools in Thibodaux, LA. Resurfacing, tile, equipment upgrades, full redesigns. Free quotes.',
-    url: 'https://acadiapools.com/services/pool-renovation-thibodaux',
+    url: 'https://www.acadiapools.com/services/pool-renovation-thibodaux',
     images: [
       {
         url: '/images/pool-sun-shelf.jpg',
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     ],
   },
   alternates: {
-    canonical: 'https://acadiapools.com/services/pool-renovation-thibodaux',
+    canonical: 'https://www.acadiapools.com/services/pool-renovation-thibodaux',
   },
 }
 
@@ -63,23 +63,23 @@ const jsonLd = {
     {
       '@type': 'BreadcrumbList',
       itemListElement: [
-        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://acadiapools.com' },
-        { '@type': 'ListItem', position: 2, name: 'Services', item: 'https://acadiapools.com/services' },
+        { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.acadiapools.com' },
+        { '@type': 'ListItem', position: 2, name: 'Services', item: 'https://www.acadiapools.com/services' },
         {
           '@type': 'ListItem',
           position: 3,
           name: 'Pool Renovation in Thibodaux, LA',
-          item: 'https://acadiapools.com/services/pool-renovation-thibodaux',
+          item: 'https://www.acadiapools.com/services/pool-renovation-thibodaux',
         },
       ],
     },
     {
       '@type': 'LocalBusiness',
-      '@id': 'https://acadiapools.com/#business',
+      '@id': 'https://www.acadiapools.com/#business',
       name: 'Acadia Pools',
-      url: 'https://acadiapools.com',
+      url: 'https://www.acadiapools.com',
       telephone: '+19854132954',
-      image: 'https://acadiapools.com/images/pool-hero.jpg',
+      image: 'https://www.acadiapools.com/images/pool-hero.jpg',
       priceRange: '$$$',
       address: {
         '@type': 'PostalAddress',
@@ -97,9 +97,9 @@ const jsonLd = {
       name: 'Pool Renovation & Remodeling',
       description:
         'Complete pool renovation and remodeling services in Thibodaux, LA. Resurfacing, tile replacement, coping, equipment upgrades, and full pool redesigns.',
-      provider: { '@id': 'https://acadiapools.com/#business' },
+      provider: { '@id': 'https://www.acadiapools.com/#business' },
       areaServed: { '@type': 'City', name: 'Thibodaux' },
-      url: 'https://acadiapools.com/services/pool-renovation-thibodaux',
+      url: 'https://www.acadiapools.com/services/pool-renovation-thibodaux',
     },
     {
       '@type': 'FAQPage',

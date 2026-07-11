@@ -6,6 +6,9 @@ export const metadata: Metadata = {
   title: 'Services',
   description:
     'Acadia Pools offers custom gunite pool construction, pool renovation, water features, outdoor living, turf installation, and pool maintenance in Thibodaux, LA.',
+  alternates: {
+    canonical: 'https://www.acadiapools.com/services',
+  },
 }
 
 const services = [

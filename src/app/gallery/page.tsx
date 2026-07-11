@@ -5,7 +5,10 @@ import type { Metadata } from 'next'
 export const metadata: Metadata = {
   title: 'Gallery',
   description:
-    'Browse Acadia Pools\' portfolio of custom gunite pools, outdoor living spaces, water features, and turf installations in Thibodaux, LA and surrounding areas.',
+    'Browse the Acadia Pools portfolio of custom gunite pools, water features, outdoor living, and turf installations across Thibodaux, LA and Lafourche Parish.',
+  alternates: {
+    canonical: 'https://www.acadiapools.com/gallery',
+  },
 }
 
 const allPhotos = [

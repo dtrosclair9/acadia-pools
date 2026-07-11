@@ -6,7 +6,10 @@ import ContactForm from '@/components/ContactForm'
 export const metadata: Metadata = {
   title: 'Contact',
   description:
-    'Get in touch with Acadia Pools for a free custom pool quote. Call (985) 413-2954 or send a message. Serving Thibodaux, LA and all of Lafourche Parish.',
+    'Contact Acadia Pools for a free custom gunite pool quote in Thibodaux, LA. Call (985) 413-2954 or send a message. Serving Thibodaux and Lafourche Parish.',
+  alternates: {
+    canonical: 'https://www.acadiapools.com/contact',
+  },
 }
 
 const contactDetails = [

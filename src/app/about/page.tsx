@@ -5,7 +5,10 @@ import type { Metadata } from 'next'
 export const metadata: Metadata = {
   title: 'About',
   description:
-    'Meet Matt Glover, owner of Acadia Pools. Born and raised in Thibodaux, LA — a good ole boy living the Cajun lifestyle and building the finest custom gunite pools in South Louisiana.',
+    'Meet Matt Glover, owner of Acadia Pools and a Thibodaux, LA native building custom gunite pools, renovations, and outdoor living across Lafourche Parish.',
+  alternates: {
+    canonical: 'https://www.acadiapools.com/about',
+  },
 }
 
 const values = [
