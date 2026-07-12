@@ -86,6 +86,31 @@ const galleryImages = [
   { src: '/images/pool-travertine-waterfront.jpg', alt: 'Beautiful pool with travertine coping and water view' },
 ]
 
+// TODO(owner): confirm real specifics — typical build timeline, starting price
+// ranges, financing options — to strengthen these hedged homepage answers.
+const faqs = [
+  {
+    q: 'How long does it take to build a custom gunite pool near Thibodaux?',
+    a: 'A gunite pool moves through several stages — design and permitting, excavation, steel and plumbing, the sprayed concrete shell, tile and decking, and the interior finish. The timeline depends on the design, the weather, and scheduling, so Matt will give you a realistic window for your specific project when you meet.',
+  },
+  {
+    q: 'Why choose a gunite pool over vinyl or fiberglass?',
+    a: 'Gunite (sprayed concrete) is the most durable and flexible option. It can be built in virtually any shape, size, or depth, holds up for decades in South Louisiana\'s climate, and is fully custom to your yard — so it can integrate spas, tanning ledges, and water features that a pre-molded fiberglass shell or a vinyl liner simply can\'t.',
+  },
+  {
+    q: 'What areas around Thibodaux does Acadia Pools build in?',
+    a: 'Acadia Pools is based in Thibodaux and builds throughout the Bayou Region, including Lafourche and Terrebonne parishes and the surrounding communities. If you\'re nearby and not sure whether we cover your area, give us a call and we\'ll let you know.',
+  },
+  {
+    q: 'How much does a custom pool cost?',
+    a: 'Every pool is different — the size, shape, finishes, decking, and features all affect the price — so there\'s no single number that fits every yard. The best next step is a conversation: reach out and Matt will walk your property, talk through what you have in mind, and put together a clear plan and quote.',
+  },
+  {
+    q: 'Does Acadia handle the whole project, from design to finish?',
+    a: 'Yes. Acadia takes your pool from the first design conversation through construction and the final finish, coordinating the work along the way so you have one team to talk to. Matt is involved from the first meeting through the build.',
+  },
+]
+
 export default function HomePage() {
   return (
     <>
@@ -286,6 +311,40 @@ export default function HomePage() {
                 More About Matt
               </Link>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── FAQ ──────────────────────────────────────────────────── */}
+      <section className="section-padding bg-white">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              '@context': 'https://schema.org',
+              '@type': 'FAQPage',
+              mainEntity: faqs.map((f) => ({
+                '@type': 'Question',
+                name: f.q,
+                acceptedAnswer: { '@type': 'Answer', text: f.a },
+              })),
+            }),
+          }}
+        />
+        <div className="container-wide max-w-3xl">
+          <div className="text-center mb-12">
+            <p className="section-label mb-3">Common Questions</p>
+            <h2 className="text-3xl md:text-4xl font-serif text-gray-900">
+              Frequently Asked Questions About Custom Pools in Thibodaux
+            </h2>
+          </div>
+          <div className="space-y-6">
+            {faqs.map((faq) => (
+              <div key={faq.q} className="border-b border-gray-100 pb-6">
+                <h3 className="text-xl font-serif text-gray-900 mb-3">{faq.q}</h3>
+                <p className="text-gray-600 leading-relaxed">{faq.a}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
