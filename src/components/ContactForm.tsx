@@ -1,12 +1,94 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 type FormState = 'idle' | 'loading' | 'success' | 'error'
+
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xppawdpv'
+
+/** Matt's Google Calendar "Service Quote" appointment schedule. */
+const BOOKING_ID =
+  'AcZssZ0eX71nLfV_c2MmbLZervJDlsbyKMIc1r2hZBdnQvBB2eq9WZfORJIXtPFxV4-p423GEzWb2iqo'
+const BOOKING_URL = `https://calendar.google.com/appointments/schedules/${BOOKING_ID}`
+const BOOKING_EMBED_URL = `https://calendar.google.com/calendar/appointments/schedules/${BOOKING_ID}?gv=true`
+
+const CITY_OTHER = 'Other / Not listed'
+
+/** Mirrors the service-area list rendered on the contact page. */
+const CITIES = [
+  'Thibodaux',
+  'Houma',
+  'Raceland',
+  'Lockport',
+  'Cut Off',
+  'Golden Meadow',
+  'Larose',
+  'Mathews',
+  'Gray',
+  'Schriever',
+  'Morgan City',
+  'Napoleonville',
+  CITY_OTHER,
+]
+
+const SERVICES = [
+  'Custom Gunite Pool',
+  'Pool Renovation / Remodel',
+  'Water Features',
+  'Outdoor Living (Patio, Deck, Outdoor Kitchen)',
+  'Turf Installation',
+  'Pool Maintenance',
+  'Other / General Inquiry',
+]
+
+/** Services where pool build specs are meaningless — the block is hidden for these. */
+const SERVICES_WITHOUT_BUILD_DETAILS = ['Turf Installation', 'Pool Maintenance']
+
+const TIMELINES = ['ASAP', '1–3 months', '3–6 months', 'Next year', 'Just exploring']
+
+/**
+ * Brackets confirmed with the owner (2026-08-06). $50,000 is the floor for a
+ * new gunite build and is stated publicly in BUDGET_FLOOR_NOTE below — if that
+ * floor ever changes, this array and that note must move together.
+ */
+const BUDGET_BRACKETS = [
+  'Under $50,000 — renovation, maintenance, or smaller project',
+  '$50,000 – $75,000',
+  '$75,000 – $100,000',
+  '$100,000 – $150,000',
+  '$150,000 – $250,000',
+  '$250,000+',
+  "Not sure yet — I'd like guidance",
+]
+
+const BUDGET_FLOOR_NOTE =
+  'New custom gunite pool builds start at $50,000. Renovations, water features, and maintenance vary.'
+
+const DECKING_OPTIONS = [
+  'Concrete',
+  'Spray deck',
+  'Natural stone (travertine, flagstone)',
+  'Not sure yet',
+]
+const POOL_SPA_OPTIONS = ['Pool only', 'Pool + attached spa', 'Not sure yet']
+const WATER_SYSTEM_OPTIONS = ['Saltwater', 'Chlorine', 'Not sure yet']
+const CONTROL_OPTIONS = ['Manual', 'Automated (phone/app control)', 'Not sure yet']
 
 export default function ContactForm() {
   const [status, setStatus] = useState<FormState>('idle')
   const [errorMessage, setErrorMessage] = useState('')
+  const [service, setService] = useState('')
+  const [city, setCity] = useState('')
+  const successHeadingRef = useRef<HTMLParagraphElement>(null)
+
+  const showBuildDetails = !SERVICES_WITHOUT_BUILD_DETAILS.includes(service)
+  const showCityOther = city === CITY_OTHER
+
+  // The submit button is gone once we swap in the booking panel — move focus so
+  // keyboard and screen reader users aren't stranded on a removed control.
+  useEffect(() => {
+    if (status === 'success') successHeadingRef.current?.focus()
+  }, [status])
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -16,8 +98,19 @@ export default function ContactForm() {
     const form = e.currentTarget
     const data = new FormData(form)
 
+    // Let Matt triage straight from the inbox list without opening anything.
+    const name = (data.get('name') as string) || 'Website visitor'
+    const cityValue =
+      ((data.get('city') as string) === CITY_OTHER
+        ? (data.get('cityOther') as string)
+        : (data.get('city') as string)) || 'Unknown city'
+    const serviceValue = (data.get('service') as string) || 'General Inquiry'
+
+    data.set('_subject', `New Quote: ${name}, ${cityValue} — ${serviceValue}`)
+    data.set('_replyto', (data.get('email') as string) || '')
+
     try {
-      const res = await fetch('https://formspree.io/f/xdapbknl', {
+      const res = await fetch(FORMSPREE_ENDPOINT, {
         method: 'POST',
         body: data,
         headers: { Accept: 'application/json' },
@@ -39,109 +132,378 @@ export default function ContactForm() {
 
   const inputClass =
     'w-full border border-gray-300 rounded px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:border-transparent transition'
+  const selectClass = `${inputClass} bg-white`
+  const labelClass = 'block text-sm font-medium text-gray-700 mb-1.5'
+  const legendClass =
+    'text-xs font-semibold uppercase tracking-widest text-gray-600 font-sans mb-4'
+  const ringStyle = { '--tw-ring-color': 'var(--color-maroon)' } as React.CSSProperties
+
+  const requiredMark = (
+    <span className="text-red-500" aria-hidden="true">
+      *
+    </span>
+  )
+
+  if (status === 'success') {
+    return (
+      <div role="status" className="text-center">
+        <p
+          ref={successHeadingRef}
+          tabIndex={-1}
+          className="text-2xl font-serif text-gray-900 mb-2 focus:outline-none"
+        >
+          Got it — Matt has your details.
+        </p>
+        <p className="text-gray-600 text-sm mb-6 font-sans">
+          Next step: pick a time for Matt to come look at your yard.
+        </p>
+
+        {/* Desktop: inline booking. The widget nests badly inside a scrolling
+            panel on a phone, so mobile gets a button instead. CSS-only swap. */}
+        <div className="hidden md:block rounded-xl overflow-hidden border border-gray-200 bg-white">
+          <iframe
+            src={BOOKING_EMBED_URL}
+            title="Book a consultation with Acadia Pools"
+            width="100%"
+            height={600}
+            loading="lazy"
+            style={{ border: 0 }}
+          />
+        </div>
+
+        <a
+          href={BOOKING_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="md:hidden btn-maroon w-full text-center block"
+        >
+          Pick a Time →
+        </a>
+
+        {/* Ships at every width: privacy blockers and Safari ITP do break Google
+            embeds, and without this that visitor hits a dead end. */}
+        <p className="text-sm text-gray-600 mt-4 font-sans">
+          Trouble with the calendar?{' '}
+          <a
+            href={BOOKING_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline font-medium"
+            style={{ color: 'var(--color-maroon)' }}
+          >
+            Open the booking page
+          </a>
+        </p>
+      </div>
+    )
+  }
 
   return (
-    <form onSubmit={handleSubmit} noValidate className="space-y-5">
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-        <div>
-          <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1.5">
-            Full Name <span className="text-red-500" aria-hidden="true">*</span>
-          </label>
-          <input
-            id="name"
-            name="name"
-            type="text"
-            required
-            autoComplete="name"
-            className={inputClass}
-            style={{ '--tw-ring-color': 'var(--color-maroon)' } as React.CSSProperties}
-            placeholder="John Doe"
-          />
+    <form onSubmit={handleSubmit} className="space-y-8">
+      {/* Formspree honeypot — bots fill it, humans never see it. */}
+      <input type="text" name="_gotcha" style={{ display: 'none' }} tabIndex={-1} aria-hidden="true" />
+
+      {/* ── Contact ─────────────────────────────────────────────── */}
+      <fieldset>
+        <legend className={legendClass}>Contact</legend>
+        <div className="space-y-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <div>
+              <label htmlFor="name" className={labelClass}>
+                Full Name {requiredMark}
+              </label>
+              <input
+                id="name"
+                name="name"
+                type="text"
+                required
+                autoComplete="name"
+                className={inputClass}
+                style={ringStyle}
+                placeholder="John Doe"
+              />
+            </div>
+            <div>
+              <label htmlFor="phone" className={labelClass}>
+                Phone Number {requiredMark}
+              </label>
+              <input
+                id="phone"
+                name="phone"
+                type="tel"
+                required
+                autoComplete="tel"
+                className={inputClass}
+                style={ringStyle}
+                placeholder="(985) 000-0000"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label htmlFor="email" className={labelClass}>
+              Email Address {requiredMark}
+            </label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              required
+              autoComplete="email"
+              className={inputClass}
+              style={ringStyle}
+              placeholder="you@example.com"
+            />
+          </div>
         </div>
-        <div>
-          <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1.5">
-            Phone Number
-          </label>
-          <input
-            id="phone"
-            name="phone"
-            type="tel"
-            autoComplete="tel"
-            className={inputClass}
-            placeholder="(985) 000-0000"
-          />
+      </fieldset>
+
+      {/* ── Property ────────────────────────────────────────────── */}
+      <fieldset>
+        <legend className={legendClass}>Property</legend>
+        <div className="space-y-5">
+          <div>
+            <label htmlFor="address" className={labelClass}>
+              Street Address {requiredMark}
+            </label>
+            <input
+              id="address"
+              name="address"
+              type="text"
+              required
+              autoComplete="street-address"
+              className={inputClass}
+              style={ringStyle}
+              placeholder="123 Ridgefield Rd"
+              aria-describedby="address-help"
+            />
+            <p id="address-help" className="text-xs text-gray-600 mt-1.5 font-sans">
+              Lets Matt look at your lot before the visit.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <div>
+              <label htmlFor="city" className={labelClass}>
+                City {requiredMark}
+              </label>
+              <select
+                id="city"
+                name="city"
+                required
+                value={city}
+                onChange={(e) => setCity(e.target.value)}
+                className={selectClass}
+                style={ringStyle}
+              >
+                <option value="">Select your city...</option>
+                {CITIES.map((c) => (
+                  <option key={c}>{c}</option>
+                ))}
+              </select>
+            </div>
+
+            {showCityOther && (
+              <div>
+                <label htmlFor="cityOther" className={labelClass}>
+                  Which city? {requiredMark}
+                </label>
+                <input
+                  id="cityOther"
+                  name="cityOther"
+                  type="text"
+                  required
+                  autoComplete="address-level2"
+                  className={inputClass}
+                  style={ringStyle}
+                  placeholder="Your city or town"
+                />
+              </div>
+            )}
+          </div>
         </div>
-      </div>
+      </fieldset>
 
-      <div>
-        <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1.5">
-          Email Address <span className="text-red-500" aria-hidden="true">*</span>
-        </label>
-        <input
-          id="email"
-          name="email"
-          type="email"
-          required
-          autoComplete="email"
-          className={inputClass}
-          placeholder="you@example.com"
-        />
-      </div>
+      {/* ── Project ─────────────────────────────────────────────── */}
+      <fieldset>
+        <legend className={legendClass}>Project</legend>
+        <div className="space-y-5">
+          <div>
+            <label htmlFor="service" className={labelClass}>
+              Service Interested In
+            </label>
+            <select
+              id="service"
+              name="service"
+              value={service}
+              onChange={(e) => setService(e.target.value)}
+              className={selectClass}
+              style={ringStyle}
+            >
+              <option value="">Select a service...</option>
+              {SERVICES.map((s) => (
+                <option key={s}>{s}</option>
+              ))}
+            </select>
+          </div>
 
-      <div>
-        <label htmlFor="service" className="block text-sm font-medium text-gray-700 mb-1.5">
-          Service Interested In
-        </label>
-        <select
-          id="service"
-          name="service"
-          className={`${inputClass} bg-white`}
-        >
-          <option value="">Select a service...</option>
-          <option>Custom Gunite Pool</option>
-          <option>Pool Renovation / Remodel</option>
-          <option>Water Features</option>
-          <option>Outdoor Living (Patio, Deck, Outdoor Kitchen)</option>
-          <option>Turf Installation</option>
-          <option>Pool Maintenance</option>
-          <option>Other / General Inquiry</option>
-        </select>
-      </div>
+          <div>
+            <label htmlFor="timeline" className={labelClass}>
+              Timeline {requiredMark}
+            </label>
+            <select
+              id="timeline"
+              name="timeline"
+              required
+              className={selectClass}
+              style={ringStyle}
+            >
+              <option value="">When are you hoping to start?</option>
+              {TIMELINES.map((t) => (
+                <option key={t}>{t}</option>
+              ))}
+            </select>
+          </div>
 
+          <div>
+            <label htmlFor="budget" className={labelClass}>
+              Budget Range {requiredMark}
+            </label>
+            <select
+              id="budget"
+              name="budget"
+              required
+              className={selectClass}
+              style={ringStyle}
+              aria-describedby="budget-help"
+            >
+              <option value="">Select a range...</option>
+              {BUDGET_BRACKETS.map((b) => (
+                <option key={b}>{b}</option>
+              ))}
+            </select>
+            <p id="budget-help" className="text-xs text-gray-600 mt-1.5 font-sans">
+              {BUDGET_FLOOR_NOTE}
+            </p>
+          </div>
+        </div>
+      </fieldset>
+
+      {/* ── Build Details (optional) ────────────────────────────── */}
+      {showBuildDetails && (
+        <fieldset className="rounded-xl bg-white border border-gray-200 p-6">
+          <legend className="px-2 text-sm font-semibold text-gray-900 font-sans">
+            Build Details — optional, but worth it
+          </legend>
+          <p className="text-xs text-gray-600 mb-5 font-sans leading-relaxed">
+            The more you can answer here, the closer Matt can get to a real number before he ever
+            comes out. Not sure on something? Leave it blank or pick &quot;Not sure yet&quot; — that
+            tells him what to walk you through.
+          </p>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <div className="sm:col-span-2">
+              <label htmlFor="dimensions" className={labelClass}>
+                Rough Pool Dimensions
+              </label>
+              <input
+                id="dimensions"
+                name="dimensions"
+                type="text"
+                className={inputClass}
+                style={ringStyle}
+                placeholder="e.g. 16x32, or about 400 sq ft"
+              />
+            </div>
+
+            <div>
+              <label htmlFor="decking" className={labelClass}>
+                Decking Material
+              </label>
+              <select id="decking" name="decking" className={selectClass} style={ringStyle}>
+                <option value="">Select...</option>
+                {DECKING_OPTIONS.map((o) => (
+                  <option key={o}>{o}</option>
+                ))}
+              </select>
+            </div>
+
+            <div>
+              <label htmlFor="poolSpa" className={labelClass}>
+                Pool Only or Pool + Spa
+              </label>
+              <select id="poolSpa" name="poolSpa" className={selectClass} style={ringStyle}>
+                <option value="">Select...</option>
+                {POOL_SPA_OPTIONS.map((o) => (
+                  <option key={o}>{o}</option>
+                ))}
+              </select>
+            </div>
+
+            <div>
+              <label htmlFor="waterSystem" className={labelClass}>
+                Water System
+              </label>
+              <select id="waterSystem" name="waterSystem" className={selectClass} style={ringStyle}>
+                <option value="">Select...</option>
+                {WATER_SYSTEM_OPTIONS.map((o) => (
+                  <option key={o}>{o}</option>
+                ))}
+              </select>
+            </div>
+
+            <div>
+              <label htmlFor="controls" className={labelClass}>
+                Pool Controls
+              </label>
+              <select id="controls" name="controls" className={selectClass} style={ringStyle}>
+                <option value="">Select...</option>
+                {CONTROL_OPTIONS.map((o) => (
+                  <option key={o}>{o}</option>
+                ))}
+              </select>
+            </div>
+          </div>
+        </fieldset>
+      )}
+
+      {/* ── Message ─────────────────────────────────────────────── */}
       <div>
-        <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1.5">
-          Tell Us About Your Project <span className="text-red-500" aria-hidden="true">*</span>
+        <label htmlFor="message" className={labelClass}>
+          Tell Us About Your Project {requiredMark}
         </label>
+        <p id="message-help" className="text-xs text-gray-600 mb-2 font-sans leading-relaxed">
+          Helpful: how wide your gate or side-yard access is, water features, lighting, and the
+          condition of any existing pool.
+        </p>
         <textarea
           id="message"
           name="message"
           required
           rows={5}
           className={`${inputClass} resize-y`}
-          placeholder="Describe your dream pool, timeline, budget, or any questions you have..."
+          style={ringStyle}
+          aria-describedby="message-help"
+          placeholder="Example: Backyard has a 10-ft gate. We'd like a waterfall and colored lights. Hoping to start before summer."
         />
       </div>
 
       {status === 'error' && (
-        <p role="alert" className="text-sm text-red-600 bg-red-50 border border-red-200 rounded px-4 py-3">
+        <p
+          role="alert"
+          className="text-sm text-red-600 bg-red-50 border border-red-200 rounded px-4 py-3"
+        >
           {errorMessage}
         </p>
       )}
 
-      {status === 'success' ? (
-        <div role="status" className="text-sm text-green-700 bg-green-50 border border-green-200 rounded px-4 py-4 text-center">
-          <p className="font-semibold text-base mb-1">Message Sent!</p>
-          <p>Thanks for reaching out! Matt will be in touch with you soon.</p>
-        </div>
-      ) : (
-        <button
-          type="submit"
-          disabled={status === 'loading'}
-          className="w-full btn-maroon text-center disabled:opacity-60 disabled:cursor-not-allowed"
-        >
-          {status === 'loading' ? 'Sending...' : 'Send My Message'}
-        </button>
-      )}
+      <button
+        type="submit"
+        disabled={status === 'loading'}
+        className="w-full btn-maroon text-center disabled:opacity-60 disabled:cursor-not-allowed"
+      >
+        {status === 'loading' ? 'Sending...' : 'Send My Message'}
+      </button>
     </form>
   )
 }

@@ -16,14 +16,14 @@ export default function PrivacyPage() {
     <section className="section-padding bg-white">
       <div className="container-wide max-w-3xl">
         <h1 className="text-4xl md:text-5xl font-serif text-gray-900 mb-3">Privacy Policy</h1>
-        <p className="text-sm text-gray-600 font-sans mb-10">Last updated: April 6, 2025</p>
+        <p className="text-sm text-gray-600 font-sans mb-10">Last updated: August 6, 2026</p>
 
         <div className="prose prose-gray max-w-none space-y-8 text-gray-600 leading-relaxed font-sans">
 
           <div>
             <h2 className="text-2xl font-serif text-gray-900 mb-3">1. Who We Are</h2>
             <p>
-              This Privacy Policy applies to Acadia Pools ("we," "us," or "our"), a custom gunite pool builder based in Thibodaux, Louisiana. Our website address is <strong>acadiapools.com</strong>. You can reach us at <a href="mailto:acadiapools@gmail.com" className="underline" style={{ color: 'var(--color-maroon)' }}>acadiapools@gmail.com</a> or by phone at <a href="tel:+19854132954" className="underline" style={{ color: 'var(--color-maroon)' }}>(985) 413-2954</a>.
+              This Privacy Policy applies to Acadia Pools (&quot;we,&quot; &quot;us,&quot; or &quot;our&quot;), a custom gunite pool builder based in Thibodaux, Louisiana. Our website address is <strong>acadiapools.com</strong>. You can reach us at <a href="mailto:acadiapools@gmail.com" className="underline" style={{ color: 'var(--color-maroon)' }}>acadiapools@gmail.com</a> or by phone at <a href="tel:+19854132954" className="underline" style={{ color: 'var(--color-maroon)' }}>(985) 413-2954</a>.
             </p>
           </div>
 
@@ -34,10 +34,14 @@ export default function PrivacyPage() {
               <li>Your name</li>
               <li>Your email address</li>
               <li>Your phone number</li>
+              <li>The street address and city of the property where the work would be done</li>
+              <li>Your project timeline and budget range</li>
+              <li>Optional build details such as pool dimensions, decking material, spa, water system, and control preferences</li>
               <li>Details about your project or inquiry submitted through our contact form</li>
+              <li>If you book a consultation, the appointment details you enter on our Google Calendar booking page</li>
             </ul>
             <p className="mt-3">
-              We do not collect payment information, and we do not use cookies or tracking technologies beyond basic analytics that may be provided by our hosting platform.
+              We ask for a property address so we can review your lot and arrive at your consultation prepared. We do not collect payment information, and we do not use cookies or tracking technologies beyond basic analytics that may be provided by our hosting platform.
             </p>
           </div>
 
@@ -57,7 +61,7 @@ export default function PrivacyPage() {
           <div>
             <h2 className="text-2xl font-serif text-gray-900 mb-3">4. How We Store Your Information</h2>
             <p>
-              Form submissions are processed through a third-party form service (Formspree) and delivered directly to our email inbox. We do not maintain a separate database of customer information beyond normal email correspondence. We retain communications only as long as necessary to complete your project or respond to your inquiry.
+              Form submissions are processed through a third-party form service (Formspree) and delivered directly to our email inbox. Consultation bookings are handled by Google Calendar and stored in our Google account. We do not maintain a separate database of customer information beyond normal email correspondence and our calendar. We retain communications only as long as necessary to complete your project or respond to your inquiry.
             </p>
           </div>
 
@@ -66,6 +70,7 @@ export default function PrivacyPage() {
             <p className="mb-3">Our website may use the following third-party services, each with their own privacy practices:</p>
             <ul className="list-disc list-inside space-y-1 ml-2">
               <li><strong>Formspree</strong> — processes contact form submissions</li>
+              <li><strong>Google Calendar (Google LLC)</strong> — powers the consultation booking tool embedded on our contact page. Any information you enter into that booking tool, including your name, email address, and any notes, is submitted to Google and governed by Google&apos;s privacy policy.</li>
               <li><strong>Vercel</strong> — hosts our website</li>
               <li><strong>Google Fonts</strong> — serves web fonts</li>
             </ul>

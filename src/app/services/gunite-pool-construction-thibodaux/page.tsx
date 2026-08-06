@@ -41,7 +41,7 @@ const faqs = [
   },
   {
     q: 'How much does a custom gunite pool cost in Thibodaux, LA?',
-    a: 'Every pool is custom-built, so pricing varies based on size, shape, features, and finish selections. Most residential gunite pools in South Louisiana start in the $60,000–$80,000 range and go up from there depending on add-ons like spas, water features, and outdoor living. We offer free, no-pressure quotes.',
+    a: 'Every pool is custom-built, so pricing varies based on size, shape, features, and finish selections. Our custom gunite builds start at $50,000 for a smaller, simpler pool and go up from there depending on add-ons like spas, water features, and outdoor living. We offer free, no-pressure quotes.',
   },
   {
     q: 'Why is gunite better than fiberglass or vinyl liner?',

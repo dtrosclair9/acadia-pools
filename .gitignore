@@ -42,3 +42,7 @@ next-env.d.ts
 
 # Strykora internal template notes — keep local, never publish
 /CLAUDE.md
+
+# Internal design specs — contain client business details (pricing ceilings,
+# margins, strategy) that must not land in a public repo
+/docs/superpowers/
