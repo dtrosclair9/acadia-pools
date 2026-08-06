@@ -141,9 +141,8 @@ export default function ContactPage() {
               >
                 <h2 className="text-2xl font-serif text-gray-900 mb-2">Request a Free Quote</h2>
                 <p className="text-gray-600 text-sm mb-7 font-sans">
-                  Tell us about your project, then pick a time for Matt to come look at your yard.
-                  The more detail you give, the closer he can get to a real number before he
-                  arrives.
+                  Tell us about your project, then book a time for your consultation and quote. The
+                  more detail you give, the closer Matt can get to a real number before you talk.
                 </p>
                 <ContactForm />
               </div>

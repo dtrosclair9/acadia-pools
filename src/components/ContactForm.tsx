@@ -193,7 +193,8 @@ export default function ContactForm() {
           Got it — Matt has your details.
         </p>
         <p className="text-gray-600 text-sm mb-6 font-sans">
-          Next step: pick a time for Matt to come look at your yard.
+          Next step: book a time for your consultation and quote. Matt may need a few more details
+          on the call to make sure Acadia is a good fit before breaking ground.
         </p>
 
         {/* Desktop: inline booking. The widget nests badly inside a scrolling
@@ -215,7 +216,7 @@ export default function ContactForm() {
           rel="noopener noreferrer"
           className="md:hidden btn-maroon w-full text-center block"
         >
-          Pick a Time →
+          Book My Consultation →
         </a>
 
         {/* Ships at every width: privacy blockers and Safari ITP do break Google
@@ -313,7 +314,7 @@ export default function ContactForm() {
               aria-describedby="address-help"
             />
             <p id="address-help" className="text-xs text-gray-600 mt-1.5 font-sans">
-              Lets Matt look at your lot before the visit.
+              Lets Matt look at your lot before you talk.
             </p>
           </div>
 
@@ -433,9 +434,9 @@ export default function ContactForm() {
             Build Details — optional, but worth it
           </legend>
           <p className="text-xs text-gray-600 mb-5 font-sans leading-relaxed">
-            The more you can answer here, the closer Matt can get to a real number before he ever
-            comes out. Not sure on something? Leave it blank or pick &quot;Not sure yet&quot; — that
-            tells him what to walk you through.
+            The more you can answer here, the closer Matt can get to a real number before your
+            consultation. Not sure on something? Leave it blank or pick &quot;Not sure yet&quot; —
+            that tells him what to walk you through.
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
