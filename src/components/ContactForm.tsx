@@ -41,8 +41,17 @@ const SERVICES = [
   'Other / General Inquiry',
 ]
 
-/** Services where pool build specs are meaningless — the block is hidden for these. */
-const SERVICES_WITHOUT_BUILD_DETAILS = ['Turf Installation', 'Pool Maintenance']
+/**
+ * Services where pool build specs are meaningless. For these — and before any
+ * service is picked — the Build Details block is hidden and the free-text
+ * message field is shown and required instead, since it is then the only place
+ * the visitor can describe anything.
+ */
+const SERVICES_WITHOUT_BUILD_DETAILS = [
+  'Turf Installation',
+  'Pool Maintenance',
+  'Other / General Inquiry',
+]
 
 const TIMELINES = ['ASAP', '1–3 months', '3–6 months', 'Next year', 'Just exploring']
 
@@ -50,8 +59,7 @@ const TIMELINES = ['ASAP', '1–3 months', '3–6 months', 'Next year', 'Just ex
  * Brackets confirmed with the owner (2026-08-06). $50,000 is the floor for a
  * new gunite build and is stated publicly in BUDGET_FLOOR_NOTE below — if that
  * floor ever changes, this array and that note must move together.
- */
-/**
+ *
  * `label` is what the visitor reads; `value` is what gets transmitted.
  *
  * They differ deliberately. Formspree's spam classifier flags "$75,000 –
@@ -85,6 +93,20 @@ const POOL_SPA_OPTIONS = ['Pool only', 'Pool + attached spa', 'Not sure yet']
 const WATER_SYSTEM_OPTIONS = ['Saltwater', 'Chlorine', 'Not sure yet']
 const CONTROL_OPTIONS = ['Manual', 'Automated (phone/app control)', 'Not sure yet']
 
+/**
+ * Gunite needs an excavator and a shotcrete rig in the back yard, so a blocked
+ * side yard changes the job entirely. This used to be prompted for in the
+ * free-text field; now that the structured questions replace that field for
+ * build enquiries, it has to be asked directly or it stops being captured.
+ */
+const GATE_ACCESS_OPTIONS = [
+  'Wider than 10 ft',
+  '8–10 ft',
+  'Under 8 ft',
+  'No side access',
+  'Not sure yet',
+]
+
 export default function ContactForm() {
   const [status, setStatus] = useState<FormState>('idle')
   const [errorMessage, setErrorMessage] = useState('')
@@ -92,7 +114,12 @@ export default function ContactForm() {
   const [city, setCity] = useState('')
   const successHeadingRef = useRef<HTMLParagraphElement>(null)
 
-  const showBuildDetails = !SERVICES_WITHOUT_BUILD_DETAILS.includes(service)
+  // Build enquiries answer the structured questions instead of writing an
+  // essay; everyone else gets the free-text field, which is then their only
+  // way to describe the job. Requires an explicit pick, so the message field
+  // is present on first load rather than appearing after a selection.
+  const showBuildDetails = service !== '' && !SERVICES_WITHOUT_BUILD_DETAILS.includes(service)
+  const showMessage = !showBuildDetails
   const showCityOther = city === CITY_OTHER
 
   // The submit button is gone once we swap in the booking panel — move focus so
@@ -473,30 +500,53 @@ export default function ContactForm() {
                 ))}
               </select>
             </div>
+
+            <div className="sm:col-span-2">
+              <label htmlFor="gateAccess" className={labelClass}>
+                Gate / Side-Yard Access
+              </label>
+              <select
+                id="gateAccess"
+                name="gateAccess"
+                className={selectClass}
+                style={ringStyle}
+                aria-describedby="gate-help"
+              >
+                <option value="">Select...</option>
+                {GATE_ACCESS_OPTIONS.map((o) => (
+                  <option key={o}>{o}</option>
+                ))}
+              </select>
+              <p id="gate-help" className="text-xs text-gray-600 mt-1.5 font-sans">
+                How wide is the path into the back yard? Equipment has to fit through it.
+              </p>
+            </div>
           </div>
         </fieldset>
       )}
 
-      {/* ── Message ─────────────────────────────────────────────── */}
-      <div>
-        <label htmlFor="message" className={labelClass}>
-          Tell Us About Your Project {requiredMark}
-        </label>
-        <p id="message-help" className="text-xs text-gray-600 mb-2 font-sans leading-relaxed">
-          Helpful: how wide your gate or side-yard access is, water features, lighting, and the
-          condition of any existing pool.
-        </p>
-        <textarea
-          id="message"
-          name="message"
-          required
-          rows={5}
-          className={`${inputClass} resize-y`}
-          style={ringStyle}
-          aria-describedby="message-help"
-          placeholder="Example: Backyard has a 10-ft gate. We'd like a waterfall and colored lights. Hoping to start before summer."
-        />
-      </div>
+      {/* ── Message — only when the structured questions don't apply ── */}
+      {showMessage && (
+        <div>
+          <label htmlFor="message" className={labelClass}>
+            Tell Us About Your Project {requiredMark}
+          </label>
+          <p id="message-help" className="text-xs text-gray-600 mb-2 font-sans leading-relaxed">
+            Helpful: the condition of any existing pool, how wide your gate or side-yard access is,
+            and anything you already know you want.
+          </p>
+          <textarea
+            id="message"
+            name="message"
+            required
+            rows={5}
+            className={`${inputClass} resize-y`}
+            style={ringStyle}
+            aria-describedby="message-help"
+            placeholder="Example: Our plaster is chalking and the tile line needs work. Backyard has a 10-ft gate. Hoping to get it done before summer."
+          />
+        </div>
+      )}
 
       {status === 'error' && (
         <p
