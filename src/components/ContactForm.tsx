@@ -51,14 +51,25 @@ const TIMELINES = ['ASAP', '1–3 months', '3–6 months', 'Next year', 'Just ex
  * new gunite build and is stated publicly in BUDGET_FLOOR_NOTE below — if that
  * floor ever changes, this array and that note must move together.
  */
+/**
+ * `label` is what the visitor reads; `value` is what gets transmitted.
+ *
+ * They differ deliberately. Formspree's spam classifier flags "$75,000 –
+ * $100,000"-shaped text as fraud/advance-fee spam, and because this field is
+ * on every submission it was flagging essentially every lead (confirmed
+ * 2026-08-06: four dollar-carrying test submissions filed as spam, an
+ * otherwise identical dollar-free one delivered). Sending k-notation keeps the
+ * range unambiguous for the owner without the $NN,NNN pattern. Do not
+ * "simplify" these back to a plain string array.
+ */
 const BUDGET_BRACKETS = [
-  'Under $50,000 — renovation, maintenance, or smaller project',
-  '$50,000 – $75,000',
-  '$75,000 – $100,000',
-  '$100,000 – $150,000',
-  '$150,000 – $250,000',
-  '$250,000+',
-  "Not sure yet — I'd like guidance",
+  { value: 'under 50k (renovation, maintenance, or smaller project)', label: 'Under $50,000 — renovation, maintenance, or smaller project' },
+  { value: '50k-75k', label: '$50,000 – $75,000' },
+  { value: '75k-100k', label: '$75,000 – $100,000' },
+  { value: '100k-150k', label: '$100,000 – $150,000' },
+  { value: '150k-250k', label: '$150,000 – $250,000' },
+  { value: '250k+', label: '$250,000+' },
+  { value: 'not sure yet - would like guidance', label: "Not sure yet — I'd like guidance" },
 ]
 
 const BUDGET_FLOOR_NOTE =
@@ -200,9 +211,6 @@ export default function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-8">
-      {/* Formspree honeypot — bots fill it, humans never see it. */}
-      <input type="text" name="_gotcha" style={{ display: 'none' }} tabIndex={-1} aria-hidden="true" />
-
       {/* ── Contact ─────────────────────────────────────────────── */}
       <fieldset>
         <legend className={legendClass}>Contact</legend>
@@ -379,7 +387,9 @@ export default function ContactForm() {
             >
               <option value="">Select a range...</option>
               {BUDGET_BRACKETS.map((b) => (
-                <option key={b}>{b}</option>
+                <option key={b.value} value={b.value}>
+                  {b.label}
+                </option>
               ))}
             </select>
             <p id="budget-help" className="text-xs text-gray-600 mt-1.5 font-sans">
