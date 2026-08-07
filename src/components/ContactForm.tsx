@@ -2,9 +2,27 @@
 
 import { useEffect, useRef, useState } from 'react'
 
+/*
+ * Brackets live in src/lib/lead.ts, shared with the server.
+ *
+ * `label` is what the visitor reads, `value` is what gets transmitted, and they
+ * differ deliberately — a "$75,000 - $100,000" payload reads as advance-fee
+ * fraud to spam classifiers and got every lead filed as spam on the previous
+ * provider. Keeping the pair in one module is what stops the confirmation email
+ * quoting a raw "75k-100k" back at the customer.
+ */
+import { BUDGET_BRACKETS, CITY_OTHER } from '@/lib/lead'
+
 type FormState = 'idle' | 'loading' | 'success' | 'error'
 
-const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xppawdpv'
+/**
+ * Our own endpoint, not Formspree.
+ *
+ * Formspree cannot notify anything but email, and email is the channel that was
+ * failing — leads sat unread. It was also silently spam-filing submissions while
+ * returning success. See src/app/api/contact/route.ts.
+ */
+const CONTACT_ENDPOINT = '/api/contact'
 
 /** Matt's Google Calendar "Service Quote" appointment schedule. */
 const BOOKING_ID =
@@ -12,7 +30,9 @@ const BOOKING_ID =
 const BOOKING_URL = `https://calendar.google.com/appointments/schedules/${BOOKING_ID}`
 const BOOKING_EMBED_URL = `https://calendar.google.com/calendar/appointments/schedules/${BOOKING_ID}?gv=true`
 
-const CITY_OTHER = 'Other / Not listed'
+// CITY_OTHER is imported from lib/lead — the form's conditional and the
+// server's validation must agree on this exact string or a valid submission
+// gets rejected for a field the visitor was never shown.
 
 /** Mirrors the service-area list rendered on the contact page. */
 const CITIES = [
@@ -54,31 +74,6 @@ const SERVICES_WITHOUT_BUILD_DETAILS = [
 ]
 
 const TIMELINES = ['ASAP', '1–3 months', '3–6 months', 'Next year', 'Just exploring']
-
-/**
- * Brackets confirmed with the owner (2026-08-06). $50,000 is the floor for a
- * new gunite build and is stated publicly in BUDGET_FLOOR_NOTE below — if that
- * floor ever changes, this array and that note must move together.
- *
- * `label` is what the visitor reads; `value` is what gets transmitted.
- *
- * They differ deliberately. Formspree's spam classifier flags "$75,000 –
- * $100,000"-shaped text as fraud/advance-fee spam, and because this field is
- * on every submission it was flagging essentially every lead (confirmed
- * 2026-08-06: four dollar-carrying test submissions filed as spam, an
- * otherwise identical dollar-free one delivered). Sending k-notation keeps the
- * range unambiguous for the owner without the $NN,NNN pattern. Do not
- * "simplify" these back to a plain string array.
- */
-const BUDGET_BRACKETS = [
-  { value: 'under 50k (renovation, maintenance, or smaller project)', label: 'Under $50,000 — renovation, maintenance, or smaller project' },
-  { value: '50k-75k', label: '$50,000 – $75,000' },
-  { value: '75k-100k', label: '$75,000 – $100,000' },
-  { value: '100k-150k', label: '$100,000 – $150,000' },
-  { value: '150k-250k', label: '$150,000 – $250,000' },
-  { value: '250k+', label: '$250,000+' },
-  { value: 'not sure yet - would like guidance', label: "Not sure yet — I'd like guidance" },
-]
 
 const BUDGET_FLOOR_NOTE =
   'New custom gunite pool builds start at $50,000. Renovations, water features, and maintenance vary.'
@@ -134,36 +129,36 @@ export default function ContactForm() {
     setErrorMessage('')
 
     const form = e.currentTarget
-    const data = new FormData(form)
-
-    // Let Matt triage straight from the inbox list without opening anything.
-    const name = (data.get('name') as string) || 'Website visitor'
-    const cityValue =
-      ((data.get('city') as string) === CITY_OTHER
-        ? (data.get('cityOther') as string)
-        : (data.get('city') as string)) || 'Unknown city'
-    const serviceValue = (data.get('service') as string) || 'General Inquiry'
-
-    data.set('_subject', `New Quote: ${name}, ${cityValue} — ${serviceValue}`)
-    data.set('_replyto', (data.get('email') as string) || '')
+    const payload = Object.fromEntries(new FormData(form).entries())
 
     try {
-      const res = await fetch(FORMSPREE_ENDPOINT, {
+      const res = await fetch(CONTACT_ENDPOINT, {
         method: 'POST',
-        body: data,
-        headers: { Accept: 'application/json' },
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
       })
+      const json = await res.json().catch(() => null)
 
-      if (res.ok) {
+      // The endpoint reports honestly: ok is true only when the owner was
+      // actually reached. Never show success on anything else.
+      if (res.ok && json?.ok) {
         setStatus('success')
         form.reset()
       } else {
-        const json = await res.json()
-        setErrorMessage(json?.errors?.[0]?.message ?? 'Something went wrong. Please try again.')
+        setErrorMessage(
+          json?.error ??
+            'Something went wrong sending your request. Please call Matt at (985) 413-2954.',
+        )
         setStatus('error')
       }
     } catch {
-      setErrorMessage('Network error. Please check your connection and try again.')
+      // Careful with the wording: the request may have reached the server and
+      // been delivered before the connection dropped. Claiming it "did not
+      // send" would push someone into submitting twice, or worse, into assuming
+      // it failed when Matt already has it.
+      setErrorMessage(
+        "Network error — we couldn't confirm your request went through. Please call Matt at (985) 413-2954 to be sure.",
+      )
       setStatus('error')
     }
   }
