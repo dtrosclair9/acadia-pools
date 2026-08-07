@@ -24,12 +24,6 @@ type FormState = 'idle' | 'loading' | 'success' | 'error'
  */
 const CONTACT_ENDPOINT = '/api/contact'
 
-/** Matt's Google Calendar "Service Quote" appointment schedule. */
-const BOOKING_ID =
-  'AcZssZ0eX71nLfV_c2MmbLZervJDlsbyKMIc1r2hZBdnQvBB2eq9WZfORJIXtPFxV4-p423GEzWb2iqo'
-const BOOKING_URL = `https://calendar.google.com/appointments/schedules/${BOOKING_ID}`
-const BOOKING_EMBED_URL = `https://calendar.google.com/calendar/appointments/schedules/${BOOKING_ID}?gv=true`
-
 // CITY_OTHER is imported from lib/lead — the form's conditional and the
 // server's validation must agree on this exact string or a valid submission
 // gets rejected for a field the visitor was never shown.
@@ -117,7 +111,7 @@ export default function ContactForm() {
   const showMessage = !showBuildDetails
   const showCityOther = city === CITY_OTHER
 
-  // The submit button is gone once we swap in the booking panel — move focus so
+  // The submit button is gone once the success panel replaces the form — move focus so
   // keyboard and screen reader users aren't stranded on a removed control.
   useEffect(() => {
     if (status === 'success') successHeadingRef.current?.focus()
@@ -188,46 +182,18 @@ export default function ContactForm() {
           Got it — Matt has your details.
         </p>
         <p className="text-gray-600 text-sm mb-6 font-sans">
-          Next step: book a time for your consultation and quote. Matt may need a few more details
-          on the call to make sure Acadia is a good fit before breaking ground.
+          A confirmation is on its way to your inbox. Matt will be in touch about your project, and
+          he may have a few questions to make sure Acadia is the right fit before breaking ground.
         </p>
 
-        {/* Desktop: inline booking. The widget nests badly inside a scrolling
-            panel on a phone, so mobile gets a button instead. CSS-only swap. */}
-        <div className="hidden md:block rounded-xl overflow-hidden border border-gray-200 bg-white">
-          <iframe
-            src={BOOKING_EMBED_URL}
-            title="Book a consultation with Acadia Pools"
-            width="100%"
-            height={600}
-            loading="lazy"
-            style={{ border: 0 }}
-          />
-        </div>
-
-        <a
-          href={BOOKING_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="md:hidden btn-maroon w-full text-center block"
-        >
-          Book My Consultation →
+        {/*
+         * The success screen ends in an action rather than a dead end. Someone
+         * who just filled in fourteen fields is at their most motivated right
+         * here, and making them hunt the header for a phone number wastes that.
+         */}
+        <a href="tel:+19854132954" className="btn-maroon w-full text-center block">
+          Rather talk now? Call (985) 413-2954
         </a>
-
-        {/* Ships at every width: privacy blockers and Safari ITP do break Google
-            embeds, and without this that visitor hits a dead end. */}
-        <p className="text-sm text-gray-600 mt-4 font-sans">
-          Trouble with the calendar?{' '}
-          <a
-            href={BOOKING_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline font-medium"
-            style={{ color: 'var(--color-maroon)' }}
-          >
-            Open the booking page
-          </a>
-        </p>
       </div>
     )
   }
