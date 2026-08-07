@@ -11,7 +11,7 @@ import { useEffect, useRef, useState } from 'react'
  * provider. Keeping the pair in one module is what stops the confirmation email
  * quoting a raw "75k-100k" back at the customer.
  */
-import { BUDGET_BRACKETS, CITY_OTHER } from '@/lib/lead'
+import { BUDGET_BRACKETS, CITY_OTHER, ELAPSED_FIELD, HONEYPOT_FIELD } from '@/lib/lead'
 
 type FormState = 'idle' | 'loading' | 'success' | 'error'
 
@@ -103,6 +103,18 @@ export default function ContactForm() {
   const [city, setCity] = useState('')
   const successHeadingRef = useRef<HTMLParagraphElement>(null)
 
+  /*
+   * When the form appeared on screen. The gap between this and submit is a
+   * cheap bot filter — see the timing check in lib/lead.
+   *
+   * Set in an effect rather than at module scope so it measures THIS visitor's
+   * session. Read at submit time only, so it never triggers a re-render.
+   */
+  const mountedAt = useRef<number>(0)
+  useEffect(() => {
+    mountedAt.current = Date.now()
+  }, [])
+
   // Build enquiries answer the structured questions instead of writing an
   // essay; everyone else gets the free-text field, which is then their only
   // way to describe the job. Requires an explicit pick, so the message field
@@ -123,7 +135,12 @@ export default function ContactForm() {
     setErrorMessage('')
 
     const form = e.currentTarget
-    const payload = Object.fromEntries(new FormData(form).entries())
+    const payload = {
+      ...Object.fromEntries(new FormData(form).entries()),
+      // How long the form was on screen. Bots posting directly have no value
+      // here and are rejected server-side.
+      [ELAPSED_FIELD]: String(mountedAt.current ? Date.now() - mountedAt.current : 0),
+    }
 
     try {
       const res = await fetch(CONTACT_ENDPOINT, {
@@ -200,6 +217,26 @@ export default function ContactForm() {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-8">
+      {/*
+       * Honeypot. Bots that parse the HTML and fill every input give themselves
+       * away; a human never sees this.
+       *
+       * display:none rather than off-screen positioning, and autoComplete="off",
+       * both to keep password managers from filling it — a false positive here
+       * costs a real lead, which is worth far more than catching one extra bot.
+       * aria-hidden and tabIndex=-1 keep it out of the accessibility tree and
+       * the tab order entirely.
+       */}
+      <input
+        type="text"
+        name={HONEYPOT_FIELD}
+        style={{ display: 'none' }}
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden="true"
+        defaultValue=""
+      />
+
       {/* ── Contact ─────────────────────────────────────────────── */}
       <fieldset>
         <legend className={legendClass}>Contact</legend>

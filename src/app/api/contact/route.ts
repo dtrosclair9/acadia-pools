@@ -22,6 +22,20 @@ export async function POST(request: Request) {
 
   const result = validateLead(body)
   if (!result.ok) {
+    if (result.spam) {
+      /*
+       * Logged separately from ordinary validation failures and from delivery
+       * failures. If a real person ever trips these — a password manager
+       * filling the honeypot, a clock oddity skewing the timing — this is the
+       * only way it becomes visible instead of looking like silence.
+       *
+       * Deliberately no lead details: unlike a delivery failure, nothing was
+       * lost that needs recovering, and logging attacker-supplied strings is
+       * how log injection happens.
+       */
+      console.warn('[contact] rejected as spam (honeypot or timing)')
+      return NextResponse.json({ ok: false, error: result.error }, { status: 422 })
+    }
     return NextResponse.json({ ok: false, error: result.error }, { status: 400 })
   }
   const { lead } = result

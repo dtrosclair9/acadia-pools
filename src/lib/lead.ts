@@ -117,11 +117,68 @@ export function leadSummary(lead: Lead): string {
   return `${lead.name}, ${resolveCity(lead)} — ${lead.service || 'General Inquiry'}`
 }
 
-export type ValidationResult = { ok: true; lead: Lead } | { ok: false; error: string }
+/**
+ * Spam signals.
+ *
+ * Formspree came with reCAPTCHA and its own filtering; owning the endpoint
+ * means owning that too. These two catch drive-by bots cheaply. Volume abuse is
+ * handled separately at the edge by a Vercel Firewall rate limit, which is the
+ * right layer for it — a serverless function has no reliable shared memory to
+ * count requests in.
+ */
+
+/** Nobody completes fourteen fields in three seconds. Bots submit instantly. */
+const MIN_ELAPSED_MS = 3000
+
+/** Six hours. Beyond this the page has been open so long the timing means nothing. */
+const MAX_ELAPSED_MS = 6 * 60 * 60 * 1000
+
+/**
+ * The honeypot field name. Deliberately plausible — bots fill anything that
+ * looks like a real field, and "website" is a common one they auto-complete.
+ */
+export const HONEYPOT_FIELD = 'website'
+
+/** How long the form was on screen before submit, in ms. */
+export const ELAPSED_FIELD = 'elapsed'
+
+export type ValidationResult =
+  | { ok: true; lead: Lead }
+  | { ok: false; error: string; spam?: true }
 
 export function validateLead(raw: unknown): ValidationResult {
   if (typeof raw !== 'object' || raw === null) return { ok: false, error: 'Malformed request.' }
   const input = raw as Record<string, unknown>
+
+  /*
+   * Honeypot. The field is hidden from sight and skipped by the tab order, so a
+   * human never fills it.
+   *
+   * We REJECT and log rather than silently discarding. Silently swallowing is
+   * the conventional advice — it avoids teaching a bot that the trap exists —
+   * but it is exactly the behaviour that lost leads on the previous provider.
+   * If a password manager ever autofills this on a real person, they get an
+   * error telling them to phone, and it shows up in the logs. A lead is worth
+   * more than denying a bot one bit of information.
+   */
+  const honeypot = input[HONEYPOT_FIELD]
+  if (typeof honeypot === 'string' && honeypot.trim() !== '') {
+    return { ok: false, error: 'Your request could not be sent.', spam: true }
+  }
+
+  /*
+   * Timing. The client stamps how long the form was on screen. A bot posting
+   * directly submits in milliseconds, or omits the field entirely — and since
+   * the form only submits via JavaScript, a real visitor always has it.
+   *
+   * A determined attacker can forge the number. This is a cheap filter for
+   * drive-by automation, not a defence against someone targeting this site.
+   */
+  const elapsed = Number(input[ELAPSED_FIELD])
+  if (!Number.isFinite(elapsed) || elapsed < MIN_ELAPSED_MS || elapsed > MAX_ELAPSED_MS) {
+    return { ok: false, error: 'Your request could not be sent.', spam: true }
+  }
+
   const lead: Record<string, string> = {}
 
   for (const [key] of FIELD_LABELS.concat([['cityOther', 'City (other)']])) {
