@@ -3,7 +3,7 @@ import Link from 'next/link'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Custom Outdoor Living Spaces in Thibodaux, LA',
+  title: 'Outdoor Kitchens & Outdoor Living in Thibodaux, LA',
   description:
     'Acadia Pools builds complete outdoor living spaces in Thibodaux, LA — custom patios, covered pergolas, outdoor kitchens, fire pits, and putting greens. Call (985) 413-2954.',
   keywords: [
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     'outdoor living space South Louisiana',
   ],
   openGraph: {
-    title: 'Custom Outdoor Living Spaces in Thibodaux, LA | Acadia Pools',
+    title: 'Outdoor Kitchens & Outdoor Living in Thibodaux, LA | Acadia Pools',
     description:
       'Acadia Pools builds complete custom outdoor living spaces in Thibodaux, LA. Patios, pergolas, outdoor kitchens, fire pits, and more.',
     url: 'https://www.acadiapools.com/services/outdoor-living-thibodaux',
@@ -143,7 +143,7 @@ export default function OutdoorLivingPage() {
           </nav>
           <p className="section-label-light mb-3">Thibodaux, Louisiana</p>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold">
-            Custom Outdoor Living Spaces in Thibodaux, LA
+            Outdoor Kitchens & Outdoor Living in Thibodaux, LA
           </h1>
         </div>
       </section>

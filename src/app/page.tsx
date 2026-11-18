@@ -131,11 +131,11 @@ export default function HomePage() {
         />
 
         <div className="relative z-10 container-wide text-center text-white">
-          <p className="section-label-light mb-4">Thibodaux, Louisiana</p>
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-serif font-bold leading-tight mb-6 drop-shadow-lg">
+          <h1 className="section-label-light mb-4">Custom Gunite Pool Builder in Thibodaux, LA</h1>
+          <p className="text-5xl md:text-6xl lg:text-7xl font-serif font-bold leading-tight mb-6 drop-shadow-lg">
             Dream It.<br />
             <span style={{ color: 'var(--color-gold)' }}>We Build It.</span>
-          </h1>
+          </p>
           <p className="text-xl md:text-2xl text-gray-200 max-w-2xl mx-auto mb-10 leading-relaxed">
             Thibodaux&apos;s premier custom gunite pool builder — crafting stunning backyard retreats across Lafourche Parish and beyond.
           </p>
