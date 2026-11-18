@@ -88,10 +88,18 @@ async function sendEmail(
 }
 
 /** The durable record. Outlives the alert; carries every field. */
-export function emailOwner(lead: Lead): Promise<boolean> {
+export function emailOwner(lead: Lead, filtered?: string[]): Promise<boolean> {
   // Reply goes to the CUSTOMER here — hitting reply on a lead should start the
   // conversation, not send mail to himself.
-  return sendEmail(OWNER_EMAIL, ownerEmail(lead), lead.email)
+  const msg = ownerEmail(lead)
+  if (filtered) {
+    // A likely sales pitch: still delivered so a misjudged real lead is never lost, but labelled and kept off Telegram.
+    const why = filtered.join(', ')
+    msg.subject = `[Filtered: sales pitch] ${msg.subject}`
+    msg.text = `This was filtered as a likely sales pitch (${why}), so it did not go to Telegram and the sender got no confirmation email. If it is a real customer, reply as usual.\n\n${msg.text}`
+    msg.html = `<p style="padding:10px 12px;background:#f7f4ef;border-left:3px solid #7B1C2A;font-family:sans-serif;font-size:14px">This was filtered as a likely sales pitch (${why}), so it did not go to Telegram and the sender got no confirmation email. If it is a real customer, reply as usual.</p>${msg.html}`
+  }
+  return sendEmail(OWNER_EMAIL, msg, lead.email)
 }
 
 /** Courtesy confirmation. Never part of whether the submission succeeded. */

@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { validateLead, leadSummary } from '@/lib/lead'
 import { alertOwner, emailCustomer, emailOwner } from '@/lib/notify'
+import { scorePitch } from '@/lib/pitch'
 
 /**
  * Quote form endpoint.
@@ -39,6 +40,18 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, error: result.error }, { status: 400 })
   }
   const { lead } = result
+
+  /*
+   * Sales pitches from agencies and vendors (real people, so the honeypot and timing checks miss them). They skip the
+   * Telegram alert and the customer confirmation, but still go to the owner's inbox, labelled, so nothing real is lost.
+   * The sender sees the normal success screen either way, so there is nothing to tune against.
+   */
+  const verdict = scorePitch(lead)
+  if (verdict.pitch) {
+    const mailed = await emailOwner(lead, verdict.reasons)
+    console.warn(`[contact] filtered as sales pitch (score ${verdict.score}: ${verdict.reasons.join(', ')}) owner email=${mailed}`)
+    return NextResponse.json({ ok: true })
+  }
 
   /*
    * All three fire concurrently and independently.
