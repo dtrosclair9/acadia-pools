@@ -114,46 +114,39 @@ const faqs = [
 export default function HomePage() {
   return (
     <>
-      {/* ── Hero ─────────────────────────────────────────────────── */}
-      <section className="relative h-[90vh] min-h-[600px] flex items-center justify-center overflow-hidden">
-        <Image
-          src="/images/pool-hero.jpg"
-          alt="Stunning custom gunite pool by Acadia Pools in Thibodaux LA"
-          fill
-          className="object-cover object-center"
-          priority
-          sizes="100vw"
-        />
-        {/* Dark overlay with maroon tint */}
-        <div
-          className="absolute inset-0"
-          style={{ background: 'linear-gradient(135deg, rgba(61,13,24,0.65) 0%, rgba(0,0,0,0.38) 100%)' }}
-        />
-
-        <div className="relative z-10 container-wide text-center text-white">
-          <h1 className="section-label-light mb-4">Custom Gunite Pool Builder in Thibodaux, LA</h1>
-          <p className="text-5xl md:text-6xl lg:text-7xl font-serif font-bold leading-tight mb-6 drop-shadow-lg">
-            Dream It.<br />
-            <span style={{ color: 'var(--color-gold)' }}>We Build It.</span>
-          </p>
-          <p className="text-xl md:text-2xl text-gray-200 max-w-2xl mx-auto mb-10 leading-relaxed">
-            Owner Matt Glover builds custom gunite pools for families in Thibodaux and across Lafourche Parish.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/contact" className="btn-gold text-base px-8 py-4">
-              Get a Free Quote
-            </Link>
-            <Link href="/gallery" className="btn-outline-white text-base px-8 py-4">
-              View Our Work
-            </Link>
+      {/* ── Hero (Option A "Cream Split", 2026-11-17) ─────────────── */}
+      <section className="grid grid-cols-1 md:grid-cols-[48%_52%] lg:grid-cols-[44%_56%] md:min-h-[560px] lg:min-h-[600px]" style={{ backgroundColor: 'var(--color-cream)' }}>
+        <div className="flex items-center justify-center px-5 py-7 md:px-8 md:py-10">
+          <div className="w-full max-w-[470px]">
+            <h1 className="font-sans font-semibold text-[17px] leading-[23px] md:text-[19px] md:leading-[26px] lg:text-[22px] lg:leading-[29px]" style={{ color: 'var(--color-maroon)' }}>
+              Custom Gunite Pool Builder in Thibodaux, LA
+            </h1>
+            <p className="font-serif font-bold mt-3 text-[43px] leading-[46px] md:text-[52px] md:leading-[55px] lg:text-[68px] lg:leading-[70px]" style={{ color: 'var(--color-maroon-deeper)' }}>
+              Dream It.<br />We Build It.
+            </p>
+            <p className="font-sans mt-4 text-base leading-6 lg:text-lg lg:leading-7" style={{ color: 'var(--color-maroon-deeper)' }}>
+              Owner Matt Glover builds custom gunite pools for families in Thibodaux and across Lafourche Parish.
+            </p>
+            <div className="mt-6 flex flex-col lg:flex-row gap-2.5 lg:gap-3">
+              <Link href="/contact" className="btn-maroon text-[15px] text-center">
+                Get a Free Quote
+              </Link>
+              <Link href="/gallery" className="btn-outline-maroon text-[15px] text-center">
+                View Our Work
+              </Link>
+            </div>
           </div>
         </div>
-
-        {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-white/60 animate-bounce">
-          <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-          </svg>
+        <div className="relative h-[225px] md:h-auto">
+          <Image
+            src="/images/gallery-20.jpg"
+            alt="Pool with a sun shelf and two in-water loungers, built by Acadia Pools"
+            fill
+            priority
+            className="object-cover"
+            style={{ objectPosition: '50% 55%' }}
+            sizes="(max-width: 767px) 100vw, 56vw"
+          />
         </div>
       </section>
 

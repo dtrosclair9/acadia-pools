@@ -18,11 +18,12 @@ export default function Footer() {
           {/* Brand */}
           <div className="lg:col-span-1">
             <Image
-              src="/images/logo.png"
+              src="/images/brand/acadia-pools-logo-cream.svg"
               alt="Acadia Pools"
-              width={150}
-              height={70}
-              className="h-16 w-auto mb-4"
+              width={132}
+              height={96}
+              unoptimized
+              className="h-24 w-auto mb-4"
             />
             <p className="text-gray-400 text-sm leading-relaxed">
               Custom gunite pool builder serving Thibodaux, LA and the surrounding Lafourche Parish area.

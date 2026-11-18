@@ -13,6 +13,7 @@ const navLinks = [
   { href: '/contact', label: 'Contact' },
 ]
 
+/** Cream header with the full vector logo (Option A "Cream Split", 2026-11-17). Full nav from lg; phone + Menu below. */
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
@@ -30,105 +31,89 @@ export default function Header() {
 
   return (
     <header
-      style={{ backgroundColor: 'var(--color-maroon-deeper)' }}
-      className={`sticky top-0 z-50 transition-shadow duration-300 ${
-        scrolled ? 'shadow-2xl' : 'shadow-lg'
-      }`}
+      style={{ backgroundColor: 'var(--color-cream)' }}
+      className={`sticky top-0 z-50 transition-shadow duration-300 ${scrolled ? 'shadow-md' : ''}`}
     >
       <div className="container-wide">
-        <div className="flex items-center justify-between h-20">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-3 shrink-0" aria-label="Acadia Pools – Home">
+        <div className="flex items-center justify-between gap-4 h-[84px] md:h-[94px] lg:h-[116px]">
+          <Link href="/" className="shrink-0" aria-label="Acadia Pools home">
             <Image
-              src="/images/logo.png"
-              alt="Acadia Pools Logo"
-              width={130}
-              height={60}
-              className="h-14 w-auto"
+              src="/images/brand/acadia-pools-logo-maroon.svg"
+              alt="Acadia Pools"
+              width={132}
+              height={96}
+              unoptimized
               priority
+              className="h-[60px] md:h-[72px] lg:h-24 w-auto"
             />
           </Link>
 
-          {/* Phone — desktop */}
-          <a
-            href="tel:+19854132954"
-            className="hidden lg:flex items-center gap-2 text-sm text-gray-300 hover:text-gold transition-colors duration-200 font-medium"
-          >
-            <svg className="w-4 h-4 text-gold shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-            </svg>
-            (985) 413-2954
-          </a>
-
-          {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-6" aria-label="Main navigation">
+          <nav className="hidden lg:flex items-center gap-7" aria-label="Main navigation">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
-                className={`text-sm font-medium transition-colors duration-200 ${
-                  pathname === link.href
-                    ? 'text-gold'
-                    : 'text-gray-200 hover:text-gold'
+                aria-current={pathname === link.href ? 'page' : undefined}
+                className={`text-[15px] font-medium transition-colors duration-200 ${
+                  pathname === link.href ? 'text-maroon underline underline-offset-8 decoration-2' : 'hover:text-maroon'
                 }`}
+                style={{ color: pathname === link.href ? 'var(--color-maroon)' : 'var(--color-maroon-deeper)' }}
               >
                 {link.label}
               </Link>
             ))}
-            <Link href="/contact" className="btn-gold text-sm !py-2 !px-5 ml-1">
-              Free Quote
-            </Link>
+            <a href="tel:+19854132954" className="btn-maroon text-[15px] !py-3 !px-5 inline-flex items-center gap-2">
+              <svg className="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
+              (985) 413-2954
+            </a>
           </nav>
 
-          {/* Mobile menu button */}
-          <button
-            className="md:hidden text-white p-2 rounded"
-            onClick={() => setMenuOpen(!menuOpen)}
-            aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'}
-            aria-expanded={menuOpen}
-            aria-controls="mobile-nav"
-          >
-            {menuOpen ? (
-              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            ) : (
-              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-            )}
-          </button>
+          <div className="flex lg:hidden items-center gap-3">
+            <a
+              href="tel:+19854132954"
+              className="inline-flex items-center gap-1.5 min-h-[44px] text-sm font-semibold"
+              style={{ color: 'var(--color-maroon)' }}
+              aria-label="Call Acadia Pools at (985) 413-2954"
+            >
+              <svg className="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
+              <span>(985) 413-2954</span>
+            </a>
+            <button
+              className="inline-flex items-center justify-center min-h-[44px] min-w-[44px] rounded border"
+              style={{ color: 'var(--color-maroon)', borderColor: 'var(--color-maroon)' }}
+              onClick={() => setMenuOpen(!menuOpen)}
+              aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+              aria-expanded={menuOpen}
+              aria-controls="mobile-nav"
+            >
+              {menuOpen ? (
+                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              ) : (
+                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+              )}
+            </button>
+          </div>
         </div>
 
-        {/* Mobile Nav */}
         {menuOpen && (
-          <nav
-            id="mobile-nav"
-            className="md:hidden border-t border-white/10 pb-4 pt-3"
-            aria-label="Mobile navigation"
-          >
+          <nav id="mobile-nav" className="lg:hidden border-t pb-4 pt-3" style={{ borderColor: 'rgba(123,28,42,0.15)' }} aria-label="Mobile navigation">
             <div className="flex flex-col gap-1">
               {navLinks.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`px-2 py-2.5 text-sm font-medium rounded transition-colors ${
-                    pathname === link.href ? 'text-gold' : 'text-gray-200 hover:text-gold'
-                  }`}
+                  aria-current={pathname === link.href ? 'page' : undefined}
+                  className="px-2 py-3 text-base font-medium rounded"
+                  style={{ color: pathname === link.href ? 'var(--color-maroon)' : 'var(--color-maroon-deeper)' }}
                 >
                   {link.label}
                 </Link>
               ))}
-              <a
-                href="tel:+19854132954"
-                className="px-2 py-2.5 text-sm text-gray-300 hover:text-gold transition-colors flex items-center gap-2"
-              >
-                <svg className="w-4 h-4 text-gold" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                </svg>
-                (985) 413-2954
-              </a>
-              <Link href="/contact" className="btn-gold text-sm text-center mt-3">
+              <Link href="/contact" className="btn-maroon text-sm text-center mt-3">
                 Get a Free Quote
               </Link>
             </div>
