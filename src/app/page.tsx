@@ -19,7 +19,7 @@ const services = [
       </svg>
     ),
     title: 'Custom Gunite Pools',
-    desc: 'Every pool we build is one-of-a-kind. From classic rectangles to freeform lagoons, we design and construct pools built to last a lifetime.',
+    desc: 'Every pool we build is custom and shaped to fit your yard. You can add a sun shelf, a spa or both.',
     href: '/services#gunite',
   },
   {
@@ -29,7 +29,7 @@ const services = [
       </svg>
     ),
     title: 'Pool Renovation',
-    desc: 'Breathe new life into an aging pool. We resurface, retile, remodel, and modernize — making your old pool feel brand new again.',
+    desc: 'Got an older pool that needs work? We resurface it, replace the tile or remodel it so it looks new again.',
     href: '/services#renovation',
   },
   {
@@ -39,7 +39,7 @@ const services = [
       </svg>
     ),
     title: 'Water Features',
-    desc: 'Waterfalls, spillover spas, bubblers, and fountains — we add the finishing touches that make your pool a true backyard paradise.',
+    desc: 'We add waterfalls, spillover spas, bubblers and fountains, on a new pool or one that is already in the ground.',
     href: '/services#water-features',
   },
   {
@@ -50,7 +50,7 @@ const services = [
       </svg>
     ),
     title: 'Outdoor Living',
-    desc: 'Patios, decks, outdoor kitchens, pergolas — we build the full outdoor experience so you never have to leave your backyard.',
+    desc: 'We build patios and decks around pools, plus outdoor kitchens and pergolas.',
     href: '/services#outdoor-living',
   },
   {
@@ -62,7 +62,7 @@ const services = [
       </svg>
     ),
     title: 'Turf Installation',
-    desc: 'Low-maintenance, always-green artificial turf that looks beautiful year-round and pairs perfectly with any pool design.',
+    desc: 'Artificial turf stays green all year with no mowing, and it works well between pavers and around the pool deck.',
     href: '/services#turf',
   },
   {
@@ -72,7 +72,7 @@ const services = [
       </svg>
     ),
     title: 'Pool Maintenance',
-    desc: 'Keep your pool pristine all year. Our maintenance programs keep the chemistry balanced and your equipment running right.',
+    desc: 'Our maintenance service keeps your water balanced and your pump, filter and other equipment running.',
     href: '/services#maintenance',
   },
 ]
@@ -86,28 +86,28 @@ const galleryImages = [
   { src: '/images/pool-travertine-waterfront.jpg', alt: 'Beautiful pool with travertine coping and water view' },
 ]
 
-// TODO(owner): confirm real specifics — typical build timeline, starting price
-// ranges, financing options — to strengthen these hedged homepage answers.
+// Timeline (8 to 14 weeks) and the $50,000 starting price match the confirmed copy on the gunite page.
+// Financing options are still unconfirmed with the owner.
 const faqs = [
   {
     q: 'How long does it take to build a custom gunite pool near Thibodaux?',
-    a: 'A gunite pool moves through several stages — design and permitting, excavation, steel and plumbing, the sprayed concrete shell, tile and decking, and the interior finish. The timeline depends on the design, the weather, and scheduling, so Matt will give you a realistic window for your specific project when you meet.',
+    a: 'Most custom gunite pools take 8 to 14 weeks. The work goes in stages: design and permits, digging, steel and plumbing, the gunite shell, tile and decking, then the interior finish. The design and the weather can move that, and Matt will give you a timeline for your pool when you meet.',
   },
   {
     q: 'Why choose a gunite pool over vinyl or fiberglass?',
-    a: 'Gunite (sprayed concrete) is the most durable and flexible option. It can be built in virtually any shape, size, or depth, holds up for decades in South Louisiana\'s climate, and is fully custom to your yard — so it can integrate spas, tanning ledges, and water features that a pre-molded fiberglass shell or a vinyl liner simply can\'t.',
+    a: 'Gunite is concrete sprayed over a steel frame, so we can build it in almost any shape, size or depth, and it holds up in South Louisiana\'s climate. It also lets us build in spas, tanning ledges and water features. Fiberglass pools come in set shapes, and vinyl liners have to be replaced over time.',
   },
   {
     q: 'What areas around Thibodaux does Acadia Pools build in?',
-    a: 'Acadia Pools is based in Thibodaux and builds throughout the Bayou Region, including Lafourche and Terrebonne parishes and the surrounding communities. If you\'re nearby and not sure whether we cover your area, give us a call and we\'ll let you know.',
+    a: 'Acadia Pools is based in Thibodaux and builds across Lafourche and Terrebonne parishes. If you are not sure whether we cover your area, call and ask.',
   },
   {
     q: 'How much does a custom pool cost?',
-    a: 'Every pool is different — the size, shape, finishes, decking, and features all affect the price — so there\'s no single number that fits every yard. The best next step is a conversation: reach out and Matt will walk your property, talk through what you have in mind, and put together a clear plan and quote.',
+    a: 'A custom gunite pool starts at $50,000. The size, finishes, decking and extras like a spa change the price, and Matt will give you a free quote after he sees your yard.',
   },
   {
     q: 'Does Acadia handle the whole project, from design to finish?',
-    a: 'Yes. Acadia takes your pool from the first design conversation through construction and the final finish, coordinating the work along the way so you have one team to talk to. Matt is involved from the first meeting through the build.',
+    a: 'Yes. Acadia handles the design and the build, so you have one team to call. Matt is part of it from the first meeting until the pool is done.',
   },
 ]
 
@@ -193,9 +193,9 @@ export default function HomePage() {
         <div className="container-wide">
           <div className="text-center mb-14">
             <p className="section-label mb-3">What We Do</p>
-            <h2 className="text-4xl md:text-5xl font-serif text-gray-900 mb-4">Everything Your Backyard Needs</h2>
+            <h2 className="text-4xl md:text-5xl font-serif text-gray-900 mb-4">What We Build</h2>
             <p className="text-gray-600 max-w-xl mx-auto text-lg">
-              From breaking ground to the final stone — we handle every detail so you can focus on what matters: enjoying your new oasis.
+              Acadia Pools handles the whole job, from digging the pool to finishing the deck around it.
             </p>
           </div>
 
@@ -231,9 +231,9 @@ export default function HomePage() {
         <div className="container-wide">
           <div className="text-center mb-14">
             <p className="section-label mb-3">Our Work</p>
-            <h2 className="text-4xl md:text-5xl font-serif text-gray-900 mb-4">Built With Pride in South Louisiana</h2>
+            <h2 className="text-4xl md:text-5xl font-serif text-gray-900 mb-4">Pools We&apos;ve Built</h2>
             <p className="text-gray-600 max-w-xl mx-auto text-lg">
-              Every pool tells a story. Take a look at some of the dream backyards we&apos;ve brought to life.
+              Here are a few of the pools Acadia has built for families in South Louisiana.
             </p>
           </div>
 
@@ -289,16 +289,16 @@ export default function HomePage() {
             </div>
 
             <div>
-              <p className="section-label mb-3">Meet the Man Behind the Magic</p>
+              <p className="section-label mb-3">Meet the Owner</p>
               <h2 className="text-4xl md:text-5xl font-serif text-gray-900 mb-6">Matt Glover</h2>
               <p className="text-gray-600 text-lg leading-relaxed mb-5">
-                Born and raised right here in Thibodaux, Matt Glover is the kind of guy who never met a stranger. His personality is contagious — you&apos;ll be belly laughing five minutes into the conversation.
+                Matt Glover was born and raised right here in Thibodaux, and he has never met a stranger. Five minutes into talking pools with him, you will probably be laughing.
               </p>
               <p className="text-gray-600 text-lg leading-relaxed mb-5">
-                A true good ole boy living the Cajun lifestyle — running crab traps on the weekends, cooking something delicious every day — Matt brings that same heart and authenticity to every single pool he builds.
+                He is a good ole boy who runs crab traps on the weekends and cooks something every day.
               </p>
               <p className="text-gray-600 text-lg leading-relaxed mb-8">
-                When you hire Acadia Pools, you&apos;re not just hiring a contractor. You&apos;re getting a neighbor who&apos;s going to treat your backyard like it&apos;s his own.
+                When you hire Acadia Pools, you work with Matt directly, from the first visit until the pool is done.
               </p>
               <Link href="/about" className="btn-maroon">
                 More About Matt
@@ -328,7 +328,7 @@ export default function HomePage() {
           <div className="text-center mb-12">
             <p className="section-label mb-3">Common Questions</p>
             <h2 className="text-3xl md:text-4xl font-serif text-gray-900">
-              Frequently Asked Questions About Custom Pools in Thibodaux
+              Questions About Building a Custom Pool in Thibodaux
             </h2>
           </div>
           <div className="space-y-6">
@@ -353,10 +353,10 @@ export default function HomePage() {
         />
         <div className="absolute inset-0" style={{ background: 'rgba(61,13,24,0.85)' }} />
         <div className="relative z-10 container-wide text-center text-white">
-          <p className="section-label-light mb-3">Ready to Dive In?</p>
-          <h2 className="text-4xl md:text-5xl font-serif mb-5">Your Dream Pool Starts with One Call</h2>
+          <p className="section-label-light mb-3">Free Quotes</p>
+          <h2 className="text-4xl md:text-5xl font-serif mb-5">Talk to Matt About Your Pool</h2>
           <p className="text-gray-300 text-xl mb-8 max-w-xl mx-auto">
-            Free consultations, no pressure. Let&apos;s sit down, talk about your vision, and build something you&apos;ll love for decades.
+            Quotes are free. Tell Matt what you have in mind, and he will come look at your yard.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/contact" className="btn-gold text-base px-8 py-4">
@@ -374,7 +374,7 @@ export default function HomePage() {
         <div className="container-wide">
           <div className="text-center mb-12">
             <p className="section-label mb-3">More Recent Projects</p>
-            <h2 className="text-4xl font-serif text-gray-900">Fresh Out of the Ground</h2>
+            <h2 className="text-4xl font-serif text-gray-900">Latest Pools</h2>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {[
