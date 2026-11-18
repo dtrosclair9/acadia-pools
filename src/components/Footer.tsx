@@ -119,7 +119,7 @@ export default function Footer() {
             <span>Thibodaux, LA | Lafourche Parish</span>
             <Link href="/privacy" className="hover:text-white transition-colors">Privacy Policy</Link>
             <Link href="/accessibility" className="hover:text-white transition-colors">Accessibility</Link>
-            <a href="https://strykora.com" target="_blank" rel="noopener" className="hover:text-white transition-colors">
+            <a href="https://strykora.com" target="_blank" rel="nofollow noopener" className="hover:text-white transition-colors">
               Website by Strykora
             </a>
           </div>
