@@ -18,6 +18,8 @@ const entries: Entry[] = [
   { path: '/services/pool-renovation-thibodaux', priority: 0.8, changeFrequency: 'monthly' },
   { path: '/services/water-features-thibodaux', priority: 0.8, changeFrequency: 'monthly' },
   { path: '/services/outdoor-living-thibodaux', priority: 0.8, changeFrequency: 'monthly' },
+  { path: '/services/pool-builder-houma-la', priority: 0.8, changeFrequency: 'monthly' },
+  { path: '/services/pool-builder-raceland-la', priority: 0.8, changeFrequency: 'monthly' },
   { path: '/about', priority: 0.6, changeFrequency: 'monthly' },
   { path: '/contact', priority: 0.6, changeFrequency: 'monthly' },
   { path: '/gallery', priority: 0.5, changeFrequency: 'monthly' },

@@ -137,7 +137,7 @@ export default function HomePage() {
             <span style={{ color: 'var(--color-gold)' }}>We Build It.</span>
           </p>
           <p className="text-xl md:text-2xl text-gray-200 max-w-2xl mx-auto mb-10 leading-relaxed">
-            Thibodaux&apos;s premier custom gunite pool builder — crafting stunning backyard retreats across Lafourche Parish and beyond.
+            Owner Matt Glover builds custom gunite pools for families in Thibodaux and across Lafourche Parish.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link href="/contact" className="btn-gold text-base px-8 py-4">

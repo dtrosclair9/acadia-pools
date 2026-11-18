@@ -329,6 +329,11 @@ export default function GunitePoolConstructionPage() {
               </div>
             ))}
           </div>
+          <p className="text-gray-600 leading-relaxed mt-8">
+            Building outside Thibodaux? See Acadia&apos;s pages for{' '}
+            <Link href="/services/pool-builder-houma-la" className="underline" style={{ color: 'var(--color-maroon)' }}>pools in Houma</Link> and{' '}
+            <Link href="/services/pool-builder-raceland-la" className="underline" style={{ color: 'var(--color-maroon)' }}>pools in Raceland</Link>.
+          </p>
         </div>
       </section>
 
