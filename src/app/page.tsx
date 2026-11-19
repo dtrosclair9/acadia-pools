@@ -375,6 +375,7 @@ export default function HomePage() {
           <div className="text-center mb-12">
             <p className="section-label mb-3">More Recent Projects</p>
             <h2 className="text-4xl font-serif text-gray-900">Latest Pools</h2>
+            <p className="mt-4 text-gray-600 text-lg max-w-2xl mx-auto">More custom pools Acadia has finished for families in South Louisiana.</p>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {[

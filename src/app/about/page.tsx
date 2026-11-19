@@ -46,7 +46,7 @@ export default function AboutPage() {
         <div className="absolute inset-0" style={{ background: 'rgba(61,13,24,0.80)' }} />
         <div className="relative z-10 container-wide text-center text-white">
           <p className="section-label-light mb-3">The People Behind the Pools</p>
-          <h1 className="text-5xl md:text-6xl font-serif font-bold">About Acadia Pools</h1>
+          <h1 className="text-5xl md:text-6xl font-serif font-bold">About Acadia Pools in Thibodaux, LA</h1>
         </div>
       </section>
 
@@ -55,7 +55,7 @@ export default function AboutPage() {
         <div className="container-wide">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
             <div>
-              <p className="section-label mb-3">The Man Behind the Magic</p>
+              <p className="section-label mb-3">Meet the Owner</p>
               <h2 className="text-4xl md:text-5xl font-serif text-gray-900 mb-6">Meet Matt Glover</h2>
 
               <p className="text-gray-600 text-lg leading-relaxed mb-5">

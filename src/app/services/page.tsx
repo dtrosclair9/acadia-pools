@@ -155,7 +155,7 @@ export default function ServicesPage() {
         <div className="absolute inset-0" style={{ background: 'rgba(61,13,24,0.80)' }} />
         <div className="relative z-10 container-wide text-center text-white">
           <p className="section-label-light mb-3">What We Offer</p>
-          <h1 className="text-5xl md:text-6xl font-serif font-bold">Our Services</h1>
+          <h1 className="text-5xl md:text-6xl font-serif font-bold">Custom Pool Services in Thibodaux, LA</h1>
         </div>
       </section>
 

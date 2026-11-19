@@ -71,7 +71,7 @@ export default function ContactPage() {
         <div className="absolute inset-0" style={{ background: 'rgba(61,13,24,0.82)' }} />
         <div className="relative z-10 container-wide text-center text-white">
           <p className="section-label-light mb-3">We&apos;d Love to Hear From You</p>
-          <h1 className="text-5xl md:text-6xl font-serif font-bold">Get in Touch</h1>
+          <h1 className="text-5xl md:text-6xl font-serif font-bold">Contact Acadia Pools in Thibodaux, LA</h1>
         </div>
       </section>
 

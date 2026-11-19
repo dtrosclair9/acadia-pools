@@ -68,7 +68,7 @@ export default function GalleryPage() {
         <div className="absolute inset-0" style={{ background: 'rgba(61,13,24,0.78)' }} />
         <div className="relative z-10 container-wide text-center text-white">
           <p className="section-label-light mb-3">Our Portfolio</p>
-          <h1 className="text-5xl md:text-6xl font-serif font-bold">Project Gallery</h1>
+          <h1 className="text-5xl md:text-6xl font-serif font-bold">Custom Pools We Have Built Around Thibodaux, LA</h1>
           <p className="text-gray-300 mt-4 text-lg max-w-xl mx-auto">
             Every pool, every patio, every backyard — built with pride right here in South Louisiana.
           </p>
